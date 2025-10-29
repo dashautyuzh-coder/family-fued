@@ -65,12 +65,13 @@ export const revealBoard = style({
   marginTop: vars.space[8],
 });
 
+const winnerGlowAnim = keyframes({
+  "0%": { textShadow: "0 0 20px rgba(255,255,100,0.4)" },
+  "100%": { textShadow: "0 0 40px rgba(255,255,150,0.9)" },
+});
+
 export const winnerGlow = style({
-  animation: "winnerGlow 2s ease-in-out infinite alternate",
-  "@keyframes winnerGlow": {
-    "0%": { textShadow: "0 0 20px rgba(255,255,100,0.4)" },
-    "100%": { textShadow: "0 0 40px rgba(255,255,150,0.9)" },
-  },
+  animation: `${winnerGlowAnim} 2s ease-in-out infinite alternate`,
 });
 
 export const revealTile = style({

@@ -18,10 +18,21 @@ export default function Home() {
           <br />
           Add teams and import CSV
         </Link>
-        <Link href="/host" className={atoms.card({ clickable: true })}>
+        <Link
+          href="/host"
+          className={atoms.card({ tone: "pink", clickable: true })}
+        >
           <strong>Host Controls →</strong>
           <br />
           Reveal answers, strikes, points
+        </Link>
+        <Link
+          href="/faceoff"
+          className={atoms.card({ tone: "green", clickable: true })}
+        >
+          <strong>Faceoff →</strong>
+          <br />
+          Faceoff to start the game
         </Link>
         <Link
           href="/game"

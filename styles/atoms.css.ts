@@ -55,6 +55,14 @@ export const card = recipe({
         background: `linear-gradient(180deg, rgba(247,201,72,.16), transparent)`,
         borderColor: vars.color.gold,
       },
+      green: {
+        background: `linear-gradient(180deg, rgba(95, 232, 211, 0.16), transparent)`,
+        borderColor: vars.color.brand,
+      },
+      pink: {
+        background: `linear-gradient(180deg, rgba(185, 28, 217, 0.16), transparent)`,
+        borderColor: vars.color.flavorPink,
+      },
     },
     clickable: {
       true: { cursor: "pointer", display: "block" },
