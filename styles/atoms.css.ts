@@ -118,7 +118,7 @@ export const button = recipe({
         color: "black",
         border: "none",
       },
-      flavorGAg1: {
+      flavorGold: {
         background: vars.color.flavorGradientAg1,
         color: "black",
         border: "none",

@@ -52,7 +52,7 @@ export default function SetupPage() {
     resetScoresAndStrikes,
     loadQuestions,
     questions,
-    current,
+    resetAll,
   } = useGameStore();
 
   const [paste, setPaste] = useState("");
@@ -135,6 +135,13 @@ export default function SetupPage() {
         Name your teams and load a question set (JSON or CSV).
       </p>
 
+      <button
+        onClick={() => router.push("/faceoff")}
+        className={a.button({ variant: "flavorGold", size: "lg" })}
+      >
+        Start Face-Off →
+      </button>
+
       {/* Teams */}
       <section style={{ display: "grid", gap: 12, marginTop: 16 }}>
         <h2>Teams</h2>
@@ -214,6 +221,13 @@ export default function SetupPage() {
             className={a.button({ variant: "ghost" })}
           >
             Reset scores & strikes
+          </button>
+
+          <button
+            onClick={resetAll}
+            className={a.button({ variant: "secondary" })}
+          >
+            🔄 Full game reset
           </button>
         </div>
       </section>

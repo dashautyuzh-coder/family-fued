@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { fetchQuestions } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
 import * as a from "@/styles/atoms.css";
+import { useRouter } from "next/navigation";
 
 export default function HostPage() {
   const {
@@ -31,6 +32,8 @@ export default function HostPage() {
     if (questions.length === 0) load();
   }, [questions.length, loadQuestions]);
 
+  const router = useRouter();
+
   if (!current)
     return <div className={a.container}>Loading host controls…</div>;
 
@@ -45,7 +48,7 @@ export default function HostPage() {
               key={i}
               onClick={() => setActiveTeam(i as 0 | 1)}
               className={a.button({
-                variant: activeTeam === i ? "flavorGAg1" : "secondary",
+                variant: activeTeam === i ? "flavorGold" : "secondary",
                 size: "sm",
               })}
             >
@@ -148,6 +151,21 @@ export default function HostPage() {
           ))}
         </div>
       </div>
+      {/* Go buttons */}
+      <section className={a.buttonsRow} style={{ marginTop: 28 }}>
+        <button
+          onClick={() => router.push("/setup")}
+          className={a.button({ variant: "secondary", size: "lg" })}
+        >
+          Open Setup →
+        </button>
+        <button
+          onClick={() => router.push("/game")}
+          className={a.button({ variant: "primary", size: "lg" })}
+        >
+          Open Game →
+        </button>
+      </section>
     </div>
   );
 }

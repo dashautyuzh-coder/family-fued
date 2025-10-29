@@ -36,7 +36,7 @@ export default function Home() {
       <div style={{ marginTop: 24, display: "flex", gap: 12 }}>
         <Link
           href="/setup"
-          className={atoms.button({ variant: "flavorGAg1", size: "lg" })}
+          className={atoms.button({ variant: "flavorGold", size: "lg" })}
         >
           Get Started
         </Link>

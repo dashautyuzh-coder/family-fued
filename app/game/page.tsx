@@ -14,16 +14,21 @@ export default function GamePage() {
     loadQuestions,
     toggleReveal,
     strikes,
-    teams, // 👈 get teams from store
+    faceoffUsed,
+    teams,
   } = useGameStore();
 
   useEffect(() => {
     async function load() {
       const q = await fetchQuestions();
-      loadQuestions(q);
+
+      // Skip first question if face-off used
+      const filtered = faceoffUsed ? q.slice(1) : q;
+      loadQuestions(filtered);
     }
+
     if (questions.length === 0) load();
-  }, [questions.length, loadQuestions]);
+  }, [questions.length, loadQuestions, faceoffUsed]);
 
   // 🔹 Whenever strikes changes, flash big X
   useEffect(() => {

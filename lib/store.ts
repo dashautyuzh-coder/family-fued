@@ -29,6 +29,17 @@ interface GameStore {
   activeTeam: 0 | 1 | null;
   setActiveTeam: (idx: 0 | 1) => void;
   addPointsToActiveTeam: (points: number) => void;
+
+  faceoffDone: boolean;
+  faceoffWinner: 0 | 1 | null;
+  setFaceoffWinner: (team: 0 | 1) => void;
+  resetFaceoff: () => void;
+
+  faceoffQuestion: Question | null;
+  setFaceoffQuestion: (q: Question | null) => void;
+  faceoffUsed: boolean;
+  setFaceoffUsed: (used: boolean) => void;
+  resetAll: () => void;
 }
 
 export const useGameStore = create<GameStore>()(
@@ -130,6 +141,38 @@ export const useGameStore = create<GameStore>()(
           score: updated[activeTeam].score + points,
         };
         set({ teams: updated });
+      },
+
+      faceoffDone: false,
+      faceoffWinner: null,
+
+      setFaceoffWinner: (team) =>
+        set({ faceoffWinner: team, faceoffDone: true, activeTeam: team }),
+
+      resetFaceoff: () =>
+        set({ faceoffDone: false, faceoffWinner: null, activeTeam: null }),
+
+      faceoffQuestion: null,
+      setFaceoffQuestion: (q) => set({ faceoffQuestion: q }),
+      faceoffUsed: false,
+      setFaceoffUsed: (used) => set({ faceoffUsed: used }),
+
+      resetAll: () => {
+        set({
+          questions: [],
+          currentIndex: 0,
+          current: null,
+          strikes: 0,
+          activeTeam: null,
+          faceoffDone: false,
+          faceoffWinner: null,
+          faceoffQuestion: null,
+          faceoffUsed: false,
+          teams: [
+            { name: "Team A", score: 0, strikes: 0 },
+            { name: "Team B", score: 0, strikes: 0 },
+          ],
+        });
       },
     }),
     {

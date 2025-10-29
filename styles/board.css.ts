@@ -27,6 +27,12 @@ const strikePop = keyframes({
   "100%": { transform: "scale(1) rotate(0deg)", opacity: 1 },
 });
 
+const flipIn = keyframes({
+  "0%": { transform: "rotateX(90deg)", opacity: 0 },
+  "50%": { transform: "rotateX(10deg)", opacity: 0.7 },
+  "100%": { transform: "rotateX(0deg)", opacity: 1 },
+});
+
 const strikeEnter = keyframes({
   "0%": {
     transform: "scale(6) rotate(-15deg)",
@@ -44,6 +50,46 @@ const strikeEnter = keyframes({
   "100%": {
     transform: "scale(1) rotate(0deg)",
   },
+});
+
+export const check = style({
+  marginLeft: "8px",
+  color: vars.color.flavorGreen,
+  fontSize: "1.25rem",
+  verticalAlign: "middle",
+});
+
+export const revealBoard = style({
+  display: "grid",
+  gap: vars.space[2],
+  marginTop: vars.space[8],
+});
+
+export const winnerGlow = style({
+  animation: "winnerGlow 2s ease-in-out infinite alternate",
+  "@keyframes winnerGlow": {
+    "0%": { textShadow: "0 0 20px rgba(255,255,100,0.4)" },
+    "100%": { textShadow: "0 0 40px rgba(255,255,150,0.9)" },
+  },
+});
+
+export const revealTile = style({
+  perspective: "800px",
+  background: vars.color.surface,
+  border: `1px solid ${vars.color.border}`,
+  padding: vars.space[4],
+  borderRadius: vars.radius.md,
+  textAlign: "center",
+  fontWeight: 700,
+  fontSize: "1.1rem",
+  animation: `${flipIn} 0.4s ease forwards`,
+  transformOrigin: "top",
+});
+
+export const correct = style({
+  background: vars.color.flavorGradientAgz,
+  color: "black",
+  boxShadow: `0 0 10px ${vars.color.flavorGradientAgz}`,
 });
 
 export const strikeBig = style({
