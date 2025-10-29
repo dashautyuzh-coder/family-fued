@@ -8,27 +8,16 @@ import { vars } from "@/styles/theme.css";
 export default function GamePage() {
   const [showBigX, setShowBigX] = useState(false);
 
-  const {
-    questions,
-    current,
-    loadQuestions,
-    toggleReveal,
-    strikes,
-    faceoffUsed,
-    teams,
-  } = useGameStore();
+  const { questions, current, loadQuestions, toggleReveal, strikes, teams } =
+    useGameStore();
 
   useEffect(() => {
     async function load() {
       const q = await fetchQuestions();
-
-      // Skip first question if face-off used
-      const filtered = faceoffUsed ? q.slice(1) : q;
-      loadQuestions(filtered);
+      loadQuestions(q);
     }
-
     if (questions.length === 0) load();
-  }, [questions.length, loadQuestions, faceoffUsed]);
+  }, [questions.length, loadQuestions]);
 
   // 🔹 Whenever strikes changes, flash big X
   useEffect(() => {

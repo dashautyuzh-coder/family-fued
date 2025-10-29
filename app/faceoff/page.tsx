@@ -14,7 +14,6 @@ export default function FaceoffPage() {
   const {
     teams,
     setFaceoffWinner,
-    setFaceoffUsed,
     resetFaceoff,
     faceoffWinner,
     faceoffQuestion,
@@ -176,7 +175,6 @@ export default function FaceoffPage() {
                 key={i}
                 onClick={() => {
                   setFaceoffWinner(i as 0 | 1);
-                  setFaceoffUsed(true);
                 }}
                 className={a.button({
                   variant: i === 0 ? "flavorGreen" : "flavorPink",

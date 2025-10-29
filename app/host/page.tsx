@@ -140,7 +140,10 @@ export default function HostPage() {
       <div style={{ marginTop: 24 }}>
         <h3>🏆 Award Points</h3>
         <div style={{ display: "flex", gap: 8 }}>
-          {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => (
+          {[
+            10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
+            95, 100,
+          ].map((val) => (
             <button
               key={val}
               onClick={() => addPointsToActiveTeam(val)}

@@ -37,8 +37,6 @@ interface GameStore {
 
   faceoffQuestion: Question | null;
   setFaceoffQuestion: (q: Question | null) => void;
-  faceoffUsed: boolean;
-  setFaceoffUsed: (used: boolean) => void;
   resetAll: () => void;
 }
 
@@ -154,8 +152,6 @@ export const useGameStore = create<GameStore>()(
 
       faceoffQuestion: null,
       setFaceoffQuestion: (q) => set({ faceoffQuestion: q }),
-      faceoffUsed: false,
-      setFaceoffUsed: (used) => set({ faceoffUsed: used }),
 
       resetAll: () => {
         set({
@@ -167,7 +163,6 @@ export const useGameStore = create<GameStore>()(
           faceoffDone: false,
           faceoffWinner: null,
           faceoffQuestion: null,
-          faceoffUsed: false,
           teams: [
             { name: "Team A", score: 0, strikes: 0 },
             { name: "Team B", score: 0, strikes: 0 },

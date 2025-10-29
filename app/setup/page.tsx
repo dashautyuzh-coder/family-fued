@@ -71,7 +71,7 @@ export default function SetupPage() {
 
   const preview = useMemo(() => {
     if (questions.length === 0) return null;
-    const first = questions[0];
+    const first = questions[1];
     const total = questions.reduce((acc, q) => acc + q.answers.length, 0);
     return { count: questions.length, totalAnswers: total, first };
   }, [questions]);
