@@ -1,0 +1,112 @@
+[
+  {
+    "id": "q1",
+    "prompt": "What is the best naming convention for color tokens in a design system?",
+    "answers": [
+      { "text": "Use semantic names (e.g., color-bg-primary)", "points": 30 },
+      { "text": "Use functional names (e.g., blue-500)", "points": 25 },
+      { "text": "Match Figma token names exactly", "points": 20 },
+      { "text": "Use CSS variable naming style (--color-primary)", "points": 15 },
+      { "text": "Keep all lowercase with hyphens", "points": 10 }
+    ]
+  },
+  {
+    "id": "q2",
+    "prompt": "Name a key benefit of using design tokens",
+    "answers": [
+      { "text": "Consistency across platforms", "points": 35 },
+      { "text": "Easier theme management", "points": 25 },
+      { "text": "Scalable handoff to engineers", "points": 20 },
+      { "text": "Rapid design updates", "points": 15 },
+      { "text": "Better accessibility control", "points": 5 }
+    ]
+  },
+  {
+    "id": "q3",
+    "prompt": "What’s a common mistake when naming spacing tokens?",
+    "answers": [
+      { "text": "Using pixel values instead of scale", "points": 30 },
+      { "text": "Too many granular values", "points": 25 },
+      { "text": "Not linking to type scale or rhythm", "points": 20 },
+      { "text": "Mixing design & dev names", "points": 15 },
+      { "text": "Unclear naming (e.g., sm/md/lg only)", "points": 10 }
+    ]
+  },
+  {
+    "id": "q4",
+    "prompt": "What should typography tokens describe?",
+    "answers": [
+      { "text": "Purpose (e.g., heading, body, label)", "points": 35 },
+      { "text": "Font family & weight", "points": 25 },
+      { "text": "Responsive behavior", "points": 20 },
+      { "text": "Line height & letter spacing", "points": 15 },
+      { "text": "Figma text style names", "points": 5 }
+    ]
+  },
+  {
+    "id": "q5",
+    "prompt": "What’s a key principle when building a token architecture?",
+    "answers": [
+      { "text": "Separate core and semantic tokens", "points": 35 },
+      { "text": "Keep naming consistent with codebase", "points": 25 },
+      { "text": "Avoid deep nesting", "points": 20 },
+      { "text": "Document every alias", "points": 15 },
+      { "text": "Avoid hard-coded values", "points": 5 }
+    ]
+  },
+  {
+    "id": "q6",
+    "prompt": "Name something you'd test when validating token usage",
+    "answers": [
+      { "text": "Accessibility contrast ratios", "points": 35 },
+      { "text": "Cross-platform rendering", "points": 25 },
+      { "text": "Dark mode consistency", "points": 20 },
+      { "text": "Performance impact", "points": 10 },
+      { "text": "Scalability in CI/CD pipeline", "points": 10 }
+    ]
+  },
+  {
+    "id": "q7",
+    "prompt": "What’s the hardest part of migrating tokens from Figma to code?",
+    "answers": [
+      { "text": "Mapping token naming conventions", "points": 35 },
+      { "text": "Ensuring parity between design and code", "points": 25 },
+      { "text": "Version control & merging", "points": 20 },
+      { "text": "Maintaining developer adoption", "points": 15 },
+      { "text": "Tooling integration", "points": 5 }
+    ]
+  },
+  {
+    "id": "q8",
+    "prompt": "Name a best practice for dark mode tokens",
+    "answers": [
+      { "text": "Use semantic naming (not light/dark suffixes)", "points": 35 },
+      { "text": "Adjust contrast dynamically", "points": 25 },
+      { "text": "Keep same spacing and typography", "points": 20 },
+      { "text": "Test color blending modes", "points": 15 },
+      { "text": "Separate theme files", "points": 5 }
+    ]
+  },
+  {
+    "id": "q9",
+    "prompt": "What is the most important tool for managing design tokens?",
+    "answers": [
+      { "text": "Style Dictionary", "points": 35 },
+      { "text": "Figma Tokens plugin", "points": 25 },
+      { "text": "Custom JSON schema", "points": 20 },
+      { "text": "GitHub versioning", "points": 15 },
+      { "text": "DesignOps automation", "points": 5 }
+    ]
+  },
+  {
+    "id": "q10",
+    "prompt": "Name something your design tokens should NEVER include",
+    "answers": [
+      { "text": "Hard-coded brand names", "points": 30 },
+      { "text": "Platform-specific selectors", "points": 25 },
+      { "text": "Magic numbers", "points": 20 },
+      { "text": "Inline CSS syntax", "points": 15 },
+      { "text": "Unreferenced values", "points": 10 }
+    ]
+  }
+]

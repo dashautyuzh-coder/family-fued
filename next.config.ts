@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
+import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  // You can keep other options here (images, headers, etc.)
 };
 
-export default nextConfig;
+export default createVanillaExtractPlugin()(nextConfig);
