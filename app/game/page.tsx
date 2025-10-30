@@ -21,9 +21,9 @@ export default function GamePage() {
 
   useEffect(() => {
     if (strikes > 0) {
-      setShowBigX(true);
-      const timeout = setTimeout(() => setShowBigX(false), 900);
-      return () => clearTimeout(timeout);
+      queueMicrotask(() => setShowBigX(true));
+      const timer = setTimeout(() => setShowBigX(false), 900);
+      return () => clearTimeout(timer);
     }
   }, [strikes]);
 
