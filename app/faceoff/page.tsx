@@ -73,12 +73,6 @@ export default function FaceoffPage() {
     loadAll();
   }, [resetFaceoff, setFaceoffQuestion]);
 
-  useEffect(() => {
-    return () => {
-      useGameStore.getState().resetFaceoff();
-    };
-  }, []);
-
   // Confetti when winner is set
   useEffect(() => {
     if (faceoffDone && faceoffWinner !== null) {
