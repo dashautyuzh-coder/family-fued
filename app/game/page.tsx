@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { fetchQuestions } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
@@ -7,7 +8,6 @@ import { vars } from "@/styles/theme.css";
 
 export default function GamePage() {
   const [showBigX, setShowBigX] = useState(false);
-
   const { questions, current, loadQuestions, toggleReveal, strikes, teams } =
     useGameStore();
 
@@ -19,7 +19,6 @@ export default function GamePage() {
     if (questions.length === 0) load();
   }, [questions.length, loadQuestions]);
 
-  // 🔹 Whenever strikes changes, flash big X
   useEffect(() => {
     if (strikes > 0) {
       setShowBigX(true);
@@ -35,7 +34,6 @@ export default function GamePage() {
       </div>
     );
 
-  // 🔹 Calculate revealed total
   const totalRevealed = current.answers
     .filter((a) => a.revealed)
     .reduce((sum, a) => sum + a.points, 0);
@@ -61,14 +59,10 @@ export default function GamePage() {
           ))}
         </div>
 
-        {/* 🔻 Footer with dynamic teams & strikes */}
         <div className={b.footer}>
           <div
             className={b.teamBox}
-            style={{
-              background: vars.color.flavorGreen,
-              color: "black",
-            }}
+            style={{ background: vars.color.flavorGreen, color: "black" }}
           >
             <strong>{teams[0].name}</strong>
             <span className={b.score}>{teams[0].score}</span>
@@ -84,10 +78,7 @@ export default function GamePage() {
 
           <div
             className={b.teamBox}
-            style={{
-              background: vars.color.flavorPink,
-              color: "black",
-            }}
+            style={{ background: vars.color.flavorPink, color: "black" }}
           >
             <strong>{teams[1].name}</strong>
             <span className={b.score}>{teams[1].score}</span>
@@ -99,7 +90,6 @@ export default function GamePage() {
           <strong style={{ color: "#F7C948" }}>{totalRevealed}</strong>
         </div>
 
-        {/* 👇 Big animated X overlay */}
         {showBigX && <div className={b.strikeBig}>X</div>}
       </section>
     </div>

@@ -25,8 +25,8 @@ export const vars = createThemeContract({
     gold: null, // “feud board” points highlight
     flavorGreen: null,
     flavorPink: null,
-    flavorGradientAgz: null,
-    flavorGradientAg1: null,
+    flavorBrown: null,
+    flavorGold: null,
   },
   space: {
     0: null,
@@ -98,9 +98,9 @@ export const ag1DarkTheme = createTheme(vars, {
     gold: "#F7C948",
     flavorGreen: "#77C19A",
     flavorPink: "#E5657E",
-    flavorGradientAgz:
+    flavorBrown:
       "conic-gradient(from 87deg at 50% 150%, #AA8263 11deg, #5C4E63 87deg, #60D998 203deg, #E5657E 283deg, #AA8263 371deg)",
-    flavorGradientAg1:
+    flavorGold:
       "conic-gradient(from 87deg at 50% 150%, #FFE800 11deg, #FFA400 87deg, #FFE800 203deg, #FFA400 283deg, #F101B7 371deg)",
   },
   space: {
@@ -152,9 +152,9 @@ export const ag1LightTheme = createTheme(vars, {
     gold: "#B08400",
     flavorGreen: "#77C19A",
     flavorPink: "#E5657E",
-    flavorGradientAgz:
+    flavorBrown:
       "conic-gradient(from 87deg at 50% 150%, #AA8263 11deg, #5C4E63 87deg, #60D998 203deg, #E5657E 283deg, #AA8263 371deg)",
-    flavorGradientAg1:
+    flavorGold:
       "conic-gradient(from 87deg at 50% 150%, #FFE800 11deg, #FFA400 87deg, #FFE800 203deg, #FFA400 283deg, #F101B7 371deg)",
   },
   space: {

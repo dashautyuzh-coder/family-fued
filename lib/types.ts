@@ -8,6 +8,7 @@ export interface Answer {
   points: number;
   /** Whether the answer has been revealed on the board */
   revealed?: boolean;
+  awarded?: boolean;
 }
 
 /** A single Family Feud–style question */

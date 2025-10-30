@@ -88,9 +88,9 @@ export const revealTile = style({
 });
 
 export const correct = style({
-  background: vars.color.flavorGradientAgz,
+  background: vars.color.flavorBrown,
   color: "black",
-  boxShadow: `0 0 10px ${vars.color.flavorGradientAgz}`,
+  boxShadow: `0 0 10px ${vars.color.flavorBrown}`,
 });
 
 export const strikeBig = style({
@@ -254,12 +254,12 @@ export const teamGlow = styleVariants({
   },
   flavorBrown: {
     boxShadow: `0 0 0 2px #8F7A71, 0 8px 28px rgba(0,0,0,.35)`,
-    background: vars.color.flavorGradientAgz,
+    background: vars.color.flavorBrown,
     color: "black",
   },
   flavorGold: {
     boxShadow: `0 0 0 2px #FFC93A, 0 8px 28px rgba(0,0,0,.35)`,
-    background: vars.color.flavorGradientAg1,
+    background: vars.color.flavorGold,
     color: "black",
   },
 });
@@ -299,6 +299,6 @@ export const toast = style({
 export const toastFlavor = styleVariants({
   flavorGreen: { background: vars.color.flavorGreen, color: "black" },
   flavorPink: { background: vars.color.flavorPink, color: "black" },
-  flavorBrown: { background: vars.color.flavorGradientAg1, color: "black" },
-  flavorGold: { background: vars.color.flavorGradientAgz, color: "black" },
+  flavorBrown: { background: vars.color.flavorBrown, color: "black" },
+  flavorGold: { background: vars.color.flavorBrown, color: "black" },
 });

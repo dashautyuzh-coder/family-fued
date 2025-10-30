@@ -1,13 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import confetti from "canvas-confetti";
+
 import { useGameStore } from "@/lib/store";
 import { fetchQuestions } from "@/lib/data";
+import { bestMatch } from "@/lib/fuzzy";
+
+import * as f from "@/styles/faceoff.css";
 import * as a from "@/styles/atoms.css";
-import { vars } from "@/styles/theme.css";
-import { useEffect, useState } from "react";
 import * as b from "@/styles/board.css";
-import confetti from "canvas-confetti";
+import { vars } from "@/styles/theme.css";
 
 export default function FaceoffPage() {
   const router = useRouter();
@@ -21,106 +25,121 @@ export default function FaceoffPage() {
   } = useGameStore();
 
   const [answers, setAnswers] = useState(["", ""]);
+  const [scores, setScores] = useState<number[]>([0, 0]);
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load the first question
+  // Load all questions into store
   useEffect(() => {
-    async function load() {
+    async function loadAll() {
       const q = await fetchQuestions();
+      useGameStore.getState().loadQuestions(q);
       setFaceoffQuestion(q[0]);
       setLoading(false);
     }
-    load();
     resetFaceoff();
+    loadAll();
   }, [resetFaceoff, setFaceoffQuestion]);
 
-  // 🎉 Fire confetti when a winner is set
+  // Confetti when winner is set
   useEffect(() => {
     if (faceoffWinner !== null) {
-      // small delay to ensure the DOM updates before running confetti
       const timer = setTimeout(() => {
         confetti({
           particleCount: 250,
           spread: 100,
-          origin: { y: 0.7 },
+          origin: { y: 0.7, x: faceoffWinner === 0 ? 0.2 : 0.8 },
           colors: [
             faceoffWinner === 0
               ? vars.color.flavorGreen
               : vars.color.flavorPink,
-            vars.color.accent,
+            vars.color.flavorGold,
           ],
         });
-      }, 400);
-
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [faceoffWinner]);
 
   if (loading || !faceoffQuestion)
-    return <main className={a.container}>Loading face-off question...</main>;
+    return <main className={f.stage}>Loading face-off question…</main>;
 
+  // Evaluate similarity but don't automatically pick winner
   const evaluateAnswers = () => {
-    const topAnswers = faceoffQuestion.answers.map((a) => a.text.toLowerCase());
+    const correctAnswers = faceoffQuestion.answers.map((a) => a.text);
     const points = faceoffQuestion.answers.map((a) => a.points);
 
-    const scores = answers.map((ans) => {
-      const idx = topAnswers.findIndex((t) => ans.toLowerCase().includes(t));
-      return idx >= 0 ? points[idx] : 0;
+    const teamScores = answers.map((ans) => {
+      const { index, score } = bestMatch(ans, correctAnswers);
+      const earned = index >= 0 && score >= 0.45 ? points[index] : 0;
+      return Math.round(score * 100); // show match % for host
     });
 
-    const winner =
-      scores[0] === scores[1] ? null : scores[0] > scores[1] ? 0 : 1;
+    setScores(teamScores);
+    setResult("Answers evaluated! Host, decide who takes control.");
+  };
 
-    if (winner !== null) {
-      setFaceoffWinner(winner);
-      setResult(
-        `${teams[winner].name} wins control (${scores[winner]} points)!`
-      );
-      setTimeout(() => router.push("/host"), 1500);
+  const handleNextQuestion = () => {
+    const { nextQuestion, questions, currentIndex } = useGameStore.getState();
+    if (questions.length > 0 && currentIndex < questions.length - 1) {
+      nextQuestion();
+      const nextQ = questions[currentIndex + 1];
+      setFaceoffQuestion(nextQ);
+      setAnswers(["", ""]);
+      setScores([0, 0]);
+      setFaceoffWinner(null);
+      setResult(null);
     } else {
-      setResult("It's a tie! Try again!");
+      setResult("No more face-off questions left!");
     }
   };
 
-  return (
-    <main className={a.container}>
-      <h1>⚡ Face-Off: {faceoffQuestion.prompt}</h1>
+  const handleChooseWinner = (teamIndex: 0 | 1) => {
+    setFaceoffWinner(teamIndex);
+    setResult(`${teams[teamIndex].name} wins control!`);
+    setTimeout(() => router.push("/host"), 2500);
+  };
 
-      <div style={{ display: "flex", gap: 24, marginTop: 24 }}>
+  return (
+    <main className={f.stage}>
+      <h1 className={f.question}>⚡ {faceoffQuestion.prompt}</h1>
+
+      {/* Podiums */}
+      <div className={f.podiums}>
         {[0, 1].map((i) => (
           <div
             key={i}
-            className={a.card()}
-            style={{
-              flex: 1,
-              borderColor:
-                faceoffWinner === i ? vars.color.gold : vars.color.border,
-            }}
+            className={`${f.podium} ${faceoffWinner === i ? f.podiumActive : ""}`}
           >
-            <h2>{teams[i].name}</h2>
+            <h2
+              style={{
+                color:
+                  i === 0 ? vars.color.flavorGreen : vars.color.flavorPink,
+              }}
+            >
+              {teams[i].name}
+            </h2>
             <input
-              placeholder="Type your answer"
+              className={f.answerInput}
+              placeholder="Type your answer..."
               value={answers[i]}
               onChange={(e) => {
-                const newAnswers = [...answers];
-                newAnswers[i] = e.target.value;
-                setAnswers(newAnswers);
+                const next = [...answers];
+                next[i] = e.target.value;
+                setAnswers(next);
               }}
-              style={{
-                width: "100%",
-                padding: "10px 12px",
-                borderRadius: 8,
-                border: "1px solid #2a3b86",
-                background: "#0a1236",
-                color: "white",
-              }}
+              disabled={faceoffWinner !== null}
             />
+            {scores[i] > 0 && (
+              <p style={{ marginTop: 8, color: vars.color.gold }}>
+                🔍 Match: {scores[i]}%
+              </p>
+            )}
           </div>
         ))}
       </div>
 
-      <div className={a.buttonsRow} style={{ marginTop: 32 }}>
+      <div className={f.evaluateBtn}>
         <button
           onClick={evaluateAnswers}
           className={a.button({ variant: "flavorGold", size: "lg" })}
@@ -128,88 +147,55 @@ export default function FaceoffPage() {
           Evaluate
         </button>
       </div>
-      {faceoffWinner !== null && (
-        <div
-          style={{
-            textAlign: "center",
-            marginTop: 40,
-            color: vars.color.gold,
-            fontSize: "2rem",
-            fontWeight: 800,
-            textShadow: "0 0 20px rgba(255,255,100,0.4)",
-          }}
-        >
-          <h2 className={b.winnerGlow}>
-            🏆 {teams[faceoffWinner].name} takes control! 🏆
-          </h2>
-          <div style={{ marginTop: 24 }}>
+
+      {result && (
+        <div className={f.resultText}>
+          <h2>{result}</h2>
+
+          {/* Reveal correct answers for the host */}
+          <div className={f.revealBoard}>
+            {faceoffQuestion.answers.map((ans, i) => (
+              <div key={i} className={f.revealTile}>
+                {i + 1}. {ans.text} — {ans.points} pts
+              </div>
+            ))}
+          </div>
+
+          {/* Host controls */}
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 24 }}>
             <button
-              onClick={() => router.push("/game")}
-              className={a.button({ variant: "flavorGold", size: "lg" })}
-              style={{
-                padding: "14px 28px",
-                fontSize: "1.2rem",
-                borderRadius: 12,
-                boxShadow: "0 0 20px rgba(255,255,255,0.2)",
-              }}
+              onClick={() => handleChooseWinner(0)}
+              className={a.button({ variant: "flavorGreen", size: "lg" })}
             >
-              Go to Game Board →
+              ✅ {teams[0].name} Wins
+            </button>
+            <button
+              onClick={() => handleChooseWinner(1)}
+              className={a.button({ variant: "flavorPink", size: "lg" })}
+            >
+              ✅ {teams[1].name} Wins
+            </button>
+            <button
+              onClick={handleNextQuestion}
+              className={a.button({ variant: "secondary", size: "lg" })}
+            >
+              ⏭ Next Question
             </button>
           </div>
         </div>
       )}
 
-      {result && (
-        <div style={{ textAlign: "center", marginTop: 32 }}>
-          <h2>{result}</h2>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 16,
-              marginTop: 20,
-            }}
+      {faceoffWinner !== null && (
+        <div className={f.winnerSection}>
+          <h2 className={b.winnerGlow}>
+            🏆 {teams[faceoffWinner].name} takes control! 🏆
+          </h2>
+          <button
+            onClick={() => router.push("/game")}
+            className={a.button({ variant: "flavorGold", size: "lg" })}
           >
-            {[0, 1].map((i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setFaceoffWinner(i as 0 | 1);
-                }}
-                className={a.button({
-                  variant: i === 0 ? "flavorGreen" : "flavorPink",
-                  size: "lg",
-                })}
-                style={{
-                  minWidth: 180,
-                  padding: "14px 24px",
-                  fontSize: "1.2rem",
-                  borderRadius: 12,
-                }}
-              >
-                ✅ {teams[i].name} Wins
-              </button>
-            ))}
-          </div>
-          <div className={b.revealBoard}>
-            {faceoffQuestion.answers.map((ans, i) => (
-              <div
-                key={i}
-                className={`${b.revealTile} ${
-                  answers.some((a) =>
-                    a.toLowerCase().includes(ans.text.toLowerCase())
-                  )
-                    ? b.correct
-                    : ""
-                }`}
-                style={{
-                  animationDelay: `${i * 0.3}s`,
-                }}
-              >
-                {ans.text} — {ans.points}
-              </div>
-            ))}
-          </div>
+            Go to Game Board →
+          </button>
         </div>
       )}
     </main>

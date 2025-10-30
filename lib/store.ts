@@ -29,6 +29,7 @@ interface GameStore {
   activeTeam: 0 | 1 | null;
   setActiveTeam: (idx: 0 | 1) => void;
   addPointsToActiveTeam: (points: number) => void;
+  addPointsToTeam: (teamIdx: 0 | 1, points: number) => void;
 
   faceoffDone: boolean;
   faceoffWinner: 0 | 1 | null;
@@ -130,15 +131,20 @@ export const useGameStore = create<GameStore>()(
 
       setActiveTeam: (idx) => set({ activeTeam: idx }),
 
-      addPointsToActiveTeam: (points) => {
-        const { teams, activeTeam } = get();
-        if (activeTeam === null) return;
+      addPointsToTeam: (teamIdx, points) => {
+        const { teams } = get();
         const updated = [...teams] as [Team, Team];
-        updated[activeTeam] = {
-          ...updated[activeTeam],
-          score: updated[activeTeam].score + points,
+        updated[teamIdx] = {
+          ...updated[teamIdx],
+          score: updated[teamIdx].score + Math.max(0, points),
         };
         set({ teams: updated });
+      },
+
+      addPointsToActiveTeam: (points) => {
+        const { activeTeam } = get();
+        if (activeTeam === null) return;
+        get().addPointsToTeam(activeTeam, points);
       },
 
       faceoffDone: false,

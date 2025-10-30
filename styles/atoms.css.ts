@@ -94,6 +94,13 @@ export const button = recipe({
         borderColor: vars.color.accent,
       },
       "&:active": { transform: "translateY(0)" },
+      "&:disabled, &[aria-disabled='true']": {
+        opacity: 0.5,
+        cursor: "not-allowed",
+        transform: "none",
+        boxShadow: "none",
+        filter: "grayscale(40%)",
+      },
     },
   },
   variants: {
@@ -121,13 +128,13 @@ export const button = recipe({
         color: "black",
         border: "none",
       },
-      flavorGAgz: {
-        background: vars.color.flavorGradientAgz,
+      flavorBrown: {
+        background: vars.color.flavorBrown,
         color: "black",
         border: "none",
       },
       flavorGold: {
-        background: vars.color.flavorGradientAg1,
+        background: vars.color.flavorGold,
         color: "black",
         border: "none",
       },
