@@ -40,7 +40,7 @@ export default function GamePage() {
 
   return (
     <div className={b.stage}>
-      <h1 className={b.title}>Design Token Showdown 💥</h1>
+      <h1 className={b.title}>AG1 Family Feud 💥</h1>
       <p className={b.subtitle}>{current.prompt}</p>
 
       <section className={b.board}>

@@ -1,49 +1,49 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchQuestions } from "@/lib/data";
-import type { Question } from "@/lib/types";
+// import type { Question } from "@/lib/types";
 import { useGameStore } from "@/lib/store";
 import * as a from "@/styles/atoms.css";
 import { useToast } from "@/lib/toast";
 
 // ---------- helpers ----------
-function csvToQuestions(csv: string): Question[] {
-  // Expect rows: prompt,answer,points  (supports # comments and blank lines)
-  const lines = csv
-    .split(/\r?\n/)
-    .map((l) => l.trim())
-    .filter(Boolean)
-    .filter((l) => !l.startsWith("#"));
+// function csvToQuestions(csv: string): Question[] {
+//   // Expect rows: prompt,answer,points  (supports # comments and blank lines)
+//   const lines = csv
+//     .split(/\r?\n/)
+//     .map((l) => l.trim())
+//     .filter(Boolean)
+//     .filter((l) => !l.startsWith("#"));
 
-  const groups = new Map<string, { text: string; points: number }[]>();
+//   const groups = new Map<string, { text: string; points: number }[]>();
 
-  for (const line of lines) {
-    const [promptRaw, answerRaw, pointsRaw = "0"] = line
-      .split(",")
-      .map((s) => s.trim());
-    if (!promptRaw || !answerRaw) continue;
+//   for (const line of lines) {
+//     const [promptRaw, answerRaw, pointsRaw = "0"] = line
+//       .split(",")
+//       .map((s) => s.trim());
+//     if (!promptRaw || !answerRaw) continue;
 
-    const points = Number(pointsRaw) || 0;
-    const arr = groups.get(promptRaw) ?? [];
-    arr.push({ text: answerRaw, points });
-    groups.set(promptRaw, arr);
-  }
+//     const points = Number(pointsRaw) || 0;
+//     const arr = groups.get(promptRaw) ?? [];
+//     arr.push({ text: answerRaw, points });
+//     groups.set(promptRaw, arr);
+//   }
 
-  let i = 1;
-  const out: Question[] = [];
-  for (const [prompt, answers] of groups) {
-    out.push({
-      id: `csv-${i++}`,
-      prompt,
-      answers: answers
-        .sort((a, b) => b.points - a.points)
-        .map((x) => ({ ...x, revealed: false, awarded: false })),
-    });
-  }
-  return out;
-}
+//   let i = 1;
+//   const out: Question[] = [];
+//   for (const [prompt, answers] of groups) {
+//     out.push({
+//       id: `csv-${i++}`,
+//       prompt,
+//       answers: answers
+//         .sort((a, b) => b.points - a.points)
+//         .map((x) => ({ ...x, revealed: false, awarded: false })),
+//     });
+//   }
+//   return out;
+// }
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -69,24 +69,24 @@ export default function SetupPage() {
     resetAll,
   } = useGameStore();
 
-  const [paste, setPaste] = useState("");
+  // const [paste, setPaste] = useState("");
   const [status, setStatus] = useState<string>("");
-  const [loadingImport, setLoadingImport] = useState(false);
-  const [loadingDefault, setLoadingDefault] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
+  // const [loadingImport, setLoadingImport] = useState(false);
+  // const [loadingDefault, setLoadingDefault] = useState(false);
+  // const fileRef = useRef<HTMLInputElement>(null);
 
   // Load default questions once if none loaded yet
   useEffect(() => {
     async function load() {
       try {
-        setLoadingDefault(true);
+        // setLoadingDefault(true);
         const q = await fetchQuestions();
         loadQuestions(q);
         setStatus(`Loaded ${q.length} questions (default)`);
       } catch (e) {
         setStatus("Failed to load default questions");
       } finally {
-        setLoadingDefault(false);
+        // setLoadingDefault(false);
       }
     }
     if (questions.length === 0) load();
@@ -100,75 +100,75 @@ export default function SetupPage() {
     return { count: questions.length, totalAnswers: total, first };
   }, [questions]);
 
-  async function handleImportJSON(text: string) {
-    try {
-      setLoadingImport(true);
-      const arr = JSON.parse(text) as Question[];
-      if (!Array.isArray(arr))
-        throw new Error("JSON must be an array of questions");
-      if (arr.length === 0) throw new Error("No questions found");
+  // async function handleImportJSON(text: string) {
+  //   try {
+  //     setLoadingImport(true);
+  //     const arr = JSON.parse(text) as Question[];
+  //     if (!Array.isArray(arr))
+  //       throw new Error("JSON must be an array of questions");
+  //     if (arr.length === 0) throw new Error("No questions found");
 
-      loadQuestions(
-        arr.map((q, i) => ({
-          id: q.id || `json-${i + 1}`,
-          prompt: q.prompt,
-          answers: q.answers.map((a) => ({
-            ...a,
-            revealed: a.revealed ?? false,
-            awarded: a.awarded ?? false,
-          })),
-        }))
-      );
-      setStatus(`✅ Loaded ${arr.length} questions from JSON`);
-      toast(`✅ Loaded ${arr.length} questions (JSON)`);
-    } catch (e: any) {
-      const msg = `JSON parse error: ${e?.message ?? e}`;
-      setStatus(msg);
-      toast(msg);
-    } finally {
-      setLoadingImport(false);
-    }
-  }
+  //     loadQuestions(
+  //       arr.map((q, i) => ({
+  //         id: q.id || `json-${i + 1}`,
+  //         prompt: q.prompt,
+  //         answers: q.answers.map((a) => ({
+  //           ...a,
+  //           revealed: a.revealed ?? false,
+  //           awarded: a.awarded ?? false,
+  //         })),
+  //       }))
+  //     );
+  //     setStatus(`✅ Loaded ${arr.length} questions from JSON`);
+  //     toast(`✅ Loaded ${arr.length} questions (JSON)`);
+  //   } catch (e: any) {
+  //     const msg = `JSON parse error: ${e?.message ?? e}`;
+  //     setStatus(msg);
+  //     toast(msg);
+  //   } finally {
+  //     setLoadingImport(false);
+  //   }
+  // }
 
-  function handleImportCSV(text: string) {
-    setLoadingImport(true);
-    try {
-      const parsed = csvToQuestions(text);
-      if (parsed.length === 0) {
-        const msg =
-          "CSV parse error: no valid rows (expect prompt,answer,points)";
-        setStatus(msg);
-        toast(msg);
-        return;
-      }
-      loadQuestions(parsed);
-      const msg = `✅ Loaded ${parsed.length} questions from CSV`;
-      setStatus(msg);
-      toast(msg);
-    } finally {
-      setLoadingImport(false);
-    }
-  }
+  // function handleImportCSV(text: string) {
+  //   setLoadingImport(true);
+  //   try {
+  //     const parsed = csvToQuestions(text);
+  //     if (parsed.length === 0) {
+  //       const msg =
+  //         "CSV parse error: no valid rows (expect prompt,answer,points)";
+  //       setStatus(msg);
+  //       toast(msg);
+  //       return;
+  //     }
+  //     loadQuestions(parsed);
+  //     const msg = `✅ Loaded ${parsed.length} questions from CSV`;
+  //     setStatus(msg);
+  //     toast(msg);
+  //   } finally {
+  //     setLoadingImport(false);
+  //   }
+  // }
 
-  function handleDetectAndImport() {
-    const text = paste.trim();
-    if (!text) return;
-    if (text.startsWith("[")) handleImportJSON(text);
-    else handleImportCSV(text);
-  }
+  // function handleDetectAndImport() {
+  //   const text = paste.trim();
+  //   if (!text) return;
+  //   if (text.startsWith("[")) handleImportJSON(text);
+  //   else handleImportCSV(text);
+  // }
 
-  async function handleFileUpload(file: File) {
-    const text = await file.text();
-    file.name.endsWith(".json")
-      ? handleImportJSON(text)
-      : handleImportCSV(text);
-  }
+  // async function handleFileUpload(file: File) {
+  //   const text = await file.text();
+  //   file.name.endsWith(".json")
+  //     ? handleImportJSON(text)
+  //     : handleImportCSV(text);
+  // }
 
-  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    void handleFileUpload(file);
-  }
+  // function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
+  //   void handleFileUpload(file);
+  // }
 
   return (
     <main className={a.container}>
@@ -272,6 +272,7 @@ export default function SetupPage() {
       {/* Questions */}
       <section className={a.card()} style={{ marginTop: 20 }}>
         <h2 style={{ marginTop: 0 }}>🧩 Questions</h2>
+        {/* 
         <p className={a.muted} style={{ marginTop: 4 }}>
           Import JSON or CSV, or use the default set.
         </p>
@@ -350,9 +351,12 @@ export default function SetupPage() {
               {status}
             </p>
           )}
-        </div>
-
-        {/* Preview */}
+        </div>*/}
+        {!!status && (
+          <p className={a.muted} style={{ marginTop: 8 }}>
+            {status}
+          </p>
+        )}
         {preview && (
           <div className={a.card({ tone: "gold" })} style={{ marginTop: 12 }}>
             <strong>{preview.count}</strong> questions loaded (

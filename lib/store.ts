@@ -50,8 +50,8 @@ export const useGameStore = create<GameStore>()(
 
       // ✅ init teams
       teams: [
-        { name: "Team A", score: 0, strikes: 0 },
-        { name: "Team B", score: 0, strikes: 0 },
+        { name: "Ctrl+Alt+Defeat", score: 0, strikes: 0 },
+        { name: "Lettuce Win", score: 0, strikes: 0 },
       ],
 
       loadQuestions: (q) =>

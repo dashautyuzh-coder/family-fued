@@ -72,6 +72,7 @@ const winnerGlowAnim = keyframes({
 
 export const winnerGlow = style({
   animation: `${winnerGlowAnim} 2s ease-in-out infinite alternate`,
+  marginBottom: vars.space[4],
 });
 
 export const revealTile = style({
