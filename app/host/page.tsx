@@ -406,6 +406,12 @@ export default function HostPage() {
         >
           Game →
         </button>
+        <button
+          onClick={() => router.push("/end-game")}
+          className={a.button({ variant: "secondary", size: "lg" })}
+        >
+          End Game →
+        </button>
       </section>
 
       {Toast}

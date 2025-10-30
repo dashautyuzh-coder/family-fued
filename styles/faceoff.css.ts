@@ -97,6 +97,7 @@ export const revealTile = style({
   padding: "0.8rem 1rem",
   borderRadius: 10,
   background: vars.color.surface,
+  color: vars.color.text,
   border: `1px solid ${vars.color.border}`,
   fontWeight: 700,
   transition: "all 0.2s ease",

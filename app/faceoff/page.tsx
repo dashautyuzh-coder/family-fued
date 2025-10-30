@@ -237,11 +237,7 @@ export default function FaceoffPage() {
       </div>
 
       {/* Evaluation summary (after Evaluate) */}
-      {evalSummary && (
-        <div className={f.resultText}>
-          <h2>{evalSummary}</h2>
-        </div>
-      )}
+      {evalSummary && <p>{evalSummary}</p>}
 
       {/* Winner panel + reveal board */}
       <div className={f.resultText}>
