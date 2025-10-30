@@ -86,7 +86,7 @@ export const ag1DarkTheme = createTheme(vars, {
   color: {
     bg: "#0b1020",
     bgSoft: "#221643ff",
-    surface: "#153a3cff",
+    surface: "#15243cff",
     panel: "#023D3D",
     border: "#edebe5",
     text: "#E9F2ED",

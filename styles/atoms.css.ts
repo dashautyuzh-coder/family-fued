@@ -41,6 +41,7 @@ export const card = recipe({
         transform: "translateY(-2px)",
         boxShadow: vars.shadow.md,
         borderColor: vars.color.accent,
+        cursor: "pointer",
       },
     },
   },
@@ -92,6 +93,7 @@ export const button = recipe({
         transform: "translateY(-1px)",
         boxShadow: vars.shadow.md,
         borderColor: vars.color.accent,
+        cursor: "pointer",
       },
       "&:active": { transform: "translateY(0)" },
       "&:disabled, &[aria-disabled='true']": {

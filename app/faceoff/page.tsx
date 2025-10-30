@@ -12,6 +12,7 @@ import * as f from "@/styles/faceoff.css";
 import * as a from "@/styles/atoms.css";
 import * as b from "@/styles/board.css";
 import { vars } from "@/styles/theme.css";
+import { playSound } from "@/lib/sounds";
 
 export default function FaceoffPage() {
   const router = useRouter();
@@ -57,6 +58,7 @@ export default function FaceoffPage() {
           ],
         });
       }, 300);
+      playSound("fireworks");
       return () => clearTimeout(timer);
     }
   }, [faceoffWinner]);
@@ -109,12 +111,13 @@ export default function FaceoffPage() {
         {[0, 1].map((i) => (
           <div
             key={i}
-            className={`${f.podium} ${faceoffWinner === i ? f.podiumActive : ""}`}
+            className={`${f.podium} ${
+              faceoffWinner === i ? f.podiumActive : ""
+            }`}
           >
             <h2
               style={{
-                color:
-                  i === 0 ? vars.color.flavorGreen : vars.color.flavorPink,
+                color: i === 0 ? vars.color.flavorGreen : vars.color.flavorPink,
               }}
             >
               {teams[i].name}
@@ -162,7 +165,14 @@ export default function FaceoffPage() {
           </div>
 
           {/* Host controls */}
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 24 }}>
+          <div
+            style={{
+              display: "flex",
+              gap: 16,
+              justifyContent: "center",
+              marginTop: 24,
+            }}
+          >
             <button
               onClick={() => handleChooseWinner(0)}
               className={a.button({ variant: "flavorGreen", size: "lg" })}
