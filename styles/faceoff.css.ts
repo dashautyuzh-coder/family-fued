@@ -63,6 +63,8 @@ export const answerInput = style({
 
 export const evaluateBtn = style({
   marginTop: vars.space[6],
+  display: "flex",
+  gap: vars.space[6],
 });
 
 export const resultText = style({

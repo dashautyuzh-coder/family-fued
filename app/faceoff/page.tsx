@@ -109,7 +109,7 @@ export default function FaceoffPage() {
   const handleChooseWinner = (teamIndex: 0 | 1) => {
     setFaceoffWinner(teamIndex);
     setResult(`${teams[teamIndex].name} wins control!`);
-    setTimeout(() => router.push("/host"), 2500);
+    setTimeout(() => router.push("/game"), 2500);
   };
 
   return (
@@ -158,6 +158,12 @@ export default function FaceoffPage() {
           className={a.button({ variant: "flavorGold", size: "lg" })}
         >
           Evaluate
+        </button>
+        <button
+          onClick={handleNextQuestion}
+          className={a.button({ variant: "secondary", size: "lg" })}
+        >
+          ⏭ Next Question
         </button>
       </div>
 
