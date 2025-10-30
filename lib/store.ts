@@ -33,7 +33,7 @@ interface GameStore {
 
   faceoffDone: boolean;
   faceoffWinner: 0 | 1 | null;
-  setFaceoffWinner: (team: 0 | 1) => void;
+  setFaceoffWinner: (team: 0 | 1 | null) => void;
   resetFaceoff: () => void;
 
   faceoffQuestion: Question | null;

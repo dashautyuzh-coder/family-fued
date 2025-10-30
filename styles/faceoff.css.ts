@@ -14,7 +14,7 @@ export const stage = style({
   textAlign: "center",
   minHeight: "100vh",
   padding: "4rem 2rem",
-  background: `radial-gradient(circle at 50% 30%, ${vars.color.backgroundSoft}, #020617)`,
+  background: `radial-gradient(circle at 50% 30%, ${vars.color.bgSoft}, #020617)`,
   color: "white",
 });
 

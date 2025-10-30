@@ -10,6 +10,7 @@ import {
 export const vars = createThemeContract({
   color: {
     bg: null,
+    bgSoft: null,
     surface: null,
     panel: null,
     border: null,
@@ -84,7 +85,8 @@ createGlobalTheme(":root", {
 export const ag1DarkTheme = createTheme(vars, {
   color: {
     bg: "#0b1020",
-    surface: "#0f152e",
+    bgSoft: "#221643ff",
+    surface: "#153a3cff",
     panel: "#023D3D",
     border: "#edebe5",
     text: "#E9F2ED",
@@ -137,6 +139,7 @@ export const ag1DarkTheme = createTheme(vars, {
 export const ag1LightTheme = createTheme(vars, {
   color: {
     bg: "#F7FAF9",
+    bgSoft: "#4E6A57",
     surface: "#FFFFFF",
     panel: "#F2F6F9",
     border: "#D5E2EA",
