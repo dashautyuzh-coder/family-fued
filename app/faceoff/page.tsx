@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
 
 import { useGameStore } from "@/lib/store";
-import { fetchQuestions } from "@/lib/data";
+import { fetchFaceoffQuestions } from "@/lib/data";
 import { bestMatch } from "@/lib/fuzzy";
 
 import * as f from "@/styles/faceoff.css";
@@ -13,6 +13,7 @@ import * as a from "@/styles/atoms.css";
 import * as b from "@/styles/board.css";
 import { vars } from "@/styles/theme.css";
 import { playSound } from "@/lib/sounds";
+import FaceoffSplash from "@/components/FaceoffSplash";
 
 export default function FaceoffPage() {
   const router = useRouter();
@@ -29,11 +30,16 @@ export default function FaceoffPage() {
   const [scores, setScores] = useState<number[]>([0, 0]);
   const [result, setResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [ready, setReady] = useState(false);
+
+  const handleSplashComplete = () => {
+    setReady(true);
+  };
 
   // Load all questions into store
   useEffect(() => {
     async function loadAll() {
-      const q = await fetchQuestions();
+      const q = await fetchFaceoffQuestions();
       useGameStore.getState().loadQuestions(q);
       setFaceoffQuestion(q[0]);
       setLoading(false);
@@ -62,6 +68,10 @@ export default function FaceoffPage() {
       return () => clearTimeout(timer);
     }
   }, [faceoffWinner]);
+
+  if (!ready) {
+    return <FaceoffSplash onComplete={handleSplashComplete} />;
+  }
 
   if (loading || !faceoffQuestion)
     return <main className={f.stage}>Loading face-off question…</main>;

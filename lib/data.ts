@@ -1,20 +1,30 @@
-import type { Question } from "./types";
+// lib/data.ts
+import type { Question } from "@/lib/types";
 
-/**
- * Server-side loader for questions.json
- * (use this in getStaticProps or React server components)
- */
-// export async function getQuestions(): Promise<Question[]> {
-//   const res = await import("/questions.json");
-//   return res.default as Question[];
-// }
-
-/**
- * Client-side loader (fetch from /lib/questions.json)
- * use this inside a useEffect() in client components.
- */
 export async function fetchQuestions(): Promise<Question[]> {
-  const res = await fetch("/questions.json");
+  const res = await fetch("/questions.json", { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load questions");
-  return res.json();
+  const data = (await res.json()) as Question[];
+  return data.map((q) => ({
+    ...q,
+    answers: q.answers.map((a) => ({
+      ...a,
+      revealed: a.revealed ?? false,
+      awarded: a.awarded ?? false,
+    })),
+  }));
+}
+
+export async function fetchFaceoffQuestions(): Promise<Question[]> {
+  const res = await fetch("/faceoff-questions.json", { cache: "no-store" });
+  if (!res.ok) throw new Error("Failed to load face-off questions");
+  const data = (await res.json()) as Question[];
+  return data.map((q) => ({
+    ...q,
+    answers: q.answers.map((a) => ({
+      ...a,
+      revealed: a.revealed ?? false,
+      awarded: a.awarded ?? false,
+    })),
+  }));
 }

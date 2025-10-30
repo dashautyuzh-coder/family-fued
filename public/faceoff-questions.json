@@ -1,0 +1,57 @@
+[
+  {
+    "id": "fo-1",
+    "prompt": "Name a household chore people often put off.",
+    "answers": [
+      { "text": "Laundry", "points": 40 },
+      { "text": "Dishes", "points": 30 },
+      { "text": "Vacuuming", "points": 15 },
+      { "text": "Cleaning the bathroom", "points": 10 },
+      { "text": "Taking out trash", "points": 5 }
+    ]
+  },
+  {
+    "id": "fo-2",
+    "prompt": "Name something people check on their phone first thing in the morning.",
+    "answers": [
+      { "text": "Messages", "points": 35 },
+      { "text": "Email", "points": 25 },
+      { "text": "Social media", "points": 20 },
+      { "text": "Weather", "points": 10 },
+      { "text": "News", "points": 10 }
+    ]
+  },
+  {
+    "id": "fo-3",
+    "prompt": "Name a common reason people skip the gym.",
+    "answers": [
+      { "text": "Too tired", "points": 35 },
+      { "text": "No time/busy", "points": 30 },
+      { "text": "Not feeling well", "points": 15 },
+      { "text": "Bad weather", "points": 10 },
+      { "text": "Forgot gear", "points": 10 }
+    ]
+  },
+  {
+    "id": "fo-4",
+    "prompt": "Name a snack you often find in an office.",
+    "answers": [
+      { "text": "Chips", "points": 30 },
+      { "text": "Fruit", "points": 25 },
+      { "text": "Granola bars", "points": 20 },
+      { "text": "Cookies", "points": 15 },
+      { "text": "Nuts", "points": 10 }
+    ]
+  },
+  {
+    "id": "fo-5",
+    "prompt": "Name a browser feature people use all the time.",
+    "answers": [
+      { "text": "Tabs", "points": 35 },
+      { "text": "Bookmarks", "points": 25 },
+      { "text": "History", "points": 15 },
+      { "text": "Autofill", "points": 15 },
+      { "text": "Incognito/Private mode", "points": 10 }
+    ]
+  }
+]
