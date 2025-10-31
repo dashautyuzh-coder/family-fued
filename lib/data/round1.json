@@ -1,0 +1,45 @@
+{
+  "title": "Round 1: Warm-Up Round",
+  "category": "Daily Routines",
+  "questions": [
+    {
+      "prompt": "Name something people do first thing in the morning.",
+      "answers": [
+        { "text": "Brush teeth", "points": 35 },
+        { "text": "Check phone", "points": 30 },
+        { "text": "Drink water or coffee", "points": 20 },
+        { "text": "Shower", "points": 10 },
+        { "text": "Exercise", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name something people forget at home when they leave for work.",
+      "answers": [
+        { "text": "Phone", "points": 40 },
+        { "text": "Keys", "points": 30 },
+        { "text": "Wallet", "points": 20 },
+        { "text": "Lunch", "points": 10 }
+      ]
+    },
+    {
+      "prompt": "Name a beverage people drink to start their day.",
+      "answers": [
+        { "text": "Coffee", "points": 40 },
+        { "text": "Tea", "points": 25 },
+        { "text": "Water", "points": 20 },
+        { "text": "Juice", "points": 10 },
+        { "text": "AG1", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name something that might make you late for work.",
+      "answers": [
+        { "text": "Traffic", "points": 40 },
+        { "text": "Oversleeping", "points": 30 },
+        { "text": "Forgot something", "points": 15 },
+        { "text": "Public transport delay", "points": 10 },
+        { "text": "Coffee stop", "points": 5 }
+      ]
+    }
+  ]
+}

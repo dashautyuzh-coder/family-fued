@@ -1,25 +1,61 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { fetchQuestions } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
 import * as a from "@/styles/atoms.css";
-import { useRouter } from "next/navigation";
 import { playSound } from "@/lib/sounds";
 import { useToast } from "@/lib/toast";
 
-// helper to sum revealed points
+// ---- helpers --------------------------------------------------------------
+
+/** Sum revealed-but-NOT-yet-awarded points */
 function sumRevealed<
-  T extends { revealed?: boolean; points: number; awarded?: boolean }
->(items: T[]) {
+  T extends { revealed?: boolean; points?: number; awarded?: boolean }
+>(items: T[] = []) {
   return items.reduce(
-    (acc, x) => (!x.awarded && x.revealed ? acc + x.points : acc),
+    (acc, x) => (!x.awarded && x.revealed ? acc + (x.points ?? 0) : acc),
     0
   );
 }
 
+/** Safely mark currently revealed answers as awarded (or hide/reset them). */
+function clearOrLockPot(opts: {
+  mode: "hide" | "lock"; // "hide" = reveal=false; "lock" = keep revealed but mark awarded=true
+}) {
+  const state = useGameStore.getState();
+  const cur = state.current;
+  if (!cur || !Array.isArray(cur.answers) || cur.answers.length === 0) return;
+
+  const updatedAnswers =
+    opts.mode === "hide"
+      ? cur.answers.map((a) => ({ ...a, revealed: false, awarded: false }))
+      : cur.answers.map((a) => ({
+          ...a,
+          awarded: a.revealed ? true : a.awarded,
+        }));
+
+  const updatedQuestions = [...state.questions];
+  updatedQuestions[state.currentIndex] = {
+    ...cur,
+    answers: updatedAnswers,
+  };
+
+  useGameStore.setState({
+    questions: updatedQuestions,
+    current: { ...cur, answers: updatedAnswers },
+  });
+}
+
+// ---- component ------------------------------------------------------------
+
+type RoundInfo = { title?: string; category?: string } | null;
+
 export default function HostPage() {
   const router = useRouter();
+  const { toast, Toast } = useToast();
+
   const {
     questions,
     current,
@@ -35,36 +71,69 @@ export default function HostPage() {
     teams,
     setActiveTeam,
     activeTeam,
-    addPointsToActiveTeam,
+    currentRound,
   } = useGameStore();
 
-  const { toast, Toast } = useToast();
-  const awardingRef = useRef(false); // debounce guard
+  const awardingRef = useRef(false);
+  const [roundInfo, setRoundInfo] = useState<RoundInfo>(null);
 
-  // load questions once
+  // ✅ Load questions for the current round (safe/fallbacks)
   useEffect(() => {
-    async function load() {
-      const q = await fetchQuestions();
-      loadQuestions(q);
-    }
-    if (questions.length === 0) load();
-  }, [questions.length, loadQuestions]);
+    let ignore = false;
 
-  // derived totals
+    (async () => {
+      try {
+        const round = await fetchQuestions(currentRound); // { title?, category?, questions? }
+        if (ignore) return;
+
+        const list = Array.isArray(round?.questions) ? round!.questions : [];
+        const withMeta = list.map((q: any, i: number) => ({
+          ...q,
+          index: i,
+          category: round?.category ?? `Round ${currentRound}`,
+        }));
+
+        loadQuestions(withMeta);
+        setRoundInfo({
+          title: round?.title ?? `Round ${currentRound}`,
+          category: round?.category ?? "General Knowledge",
+        });
+      } catch (err) {
+        console.error(
+          "❌ Failed to load host questions for round",
+          currentRound,
+          err
+        );
+        loadQuestions([]);
+        setRoundInfo({
+          title: `Round ${currentRound}`,
+          category: "Unavailable",
+        });
+      }
+    })();
+
+    return () => {
+      ignore = true;
+    };
+  }, [currentRound, loadQuestions]);
+
+  // ✅ Derived total of revealed-but-unawarded points
   const revealedTotal = useMemo(
     () => (current ? sumRevealed(current.answers) : 0),
     [current]
   );
 
-  // keyboard shortcuts
+  // ✅ Keyboard shortcuts
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (!current) return;
+      const state = useGameStore.getState();
+      const cur = state.current;
+      if (!cur) return;
 
-      // numbers 1..9 → toggle that answer
+      // 1–9 toggles answer
       if (e.key >= "1" && e.key <= "9") {
         const idx = Number(e.key) - 1;
-        if (idx < current.answers.length) {
+        if (idx < (cur.answers?.length ?? 0)) {
           e.preventDefault();
           toggleReveal(idx);
         }
@@ -72,32 +141,41 @@ export default function HostPage() {
       }
 
       switch (e.key) {
-        case "ArrowLeft":
+        case "ArrowLeft": {
           e.preventDefault();
-          prevQuestion();
+          if (state.currentIndex > 0) prevQuestion();
           break;
-        case "ArrowRight":
+        }
+        case "ArrowRight": {
           e.preventDefault();
-          resetReveals(); // optional: auto reset on next
-          nextQuestion();
+          if (state.currentIndex < state.questions.length - 1) {
+            resetReveals();
+            prevSafeClearPot("hide"); // optional: clear pot on next q
+            nextQuestion();
+          }
           break;
-        case " ":
-          // Space = add strike
+        }
+        case " ": {
+          // Space = strike
           e.preventDefault();
           addStrike();
           playSound("strike");
           toast("❌ Strike added!");
           break;
+        }
         case "r":
-        case "R":
+        case "R": {
           e.preventDefault();
           resetReveals();
+          // Also clear awarded flags so you can re-award later if re-revealed
+          clearOrLockPot({ mode: "hide" });
           break;
+        }
         case "a":
-        case "A":
+        case "A": {
+          // Award current pot to active team (no double-dip)
           e.preventDefault();
           if (awardingRef.current) return;
-          const state = useGameStore.getState();
           const teamIdx = state.activeTeam;
           const pot = sumRevealed(state.current?.answers ?? []);
           if (teamIdx === null || pot <= 0) return;
@@ -106,45 +184,63 @@ export default function HostPage() {
           state.addPointsToTeam(teamIdx as 0 | 1, pot);
           playSound("award");
           toast(`🏆 +${pot} points to ${state.teams[teamIdx].name}!`);
-          state.resetReveals();
+
+          // Mark those revealed answers as awarded (so pot = 0 now)
+          clearOrLockPot({ mode: "lock" });
+
           setTimeout(() => (awardingRef.current = false), 500);
           break;
+        }
         case "t":
-        case "T":
+        case "T": {
+          // Swap active team AND clear the pot to prevent accumulation
           e.preventDefault();
-          if (activeTeam === null) return;
-          setActiveTeam((activeTeam === 0 ? 1 : 0) as 0 | 1);
-          toast(
-            `🎯 Switched to ${
-              teams[activeTeam === 0 ? 1 : 0].name
-            } as active team`
-          );
+          if (state.activeTeam === null) return;
+          const newIdx = state.activeTeam === 0 ? 1 : 0;
+          setActiveTeam(newIdx as 0 | 1);
+          toast(`🎯 Now controlling: ${state.teams[newIdx].name}`);
+
+          // 🔒 Prevent the next team from re-awarding the same reveals:
+          // Choose one of these behaviors; "hide" is more Feud-like.
+          clearOrLockPot({ mode: "hide" }); // hide reveals and reset awarded flags
           break;
+        }
       }
     }
+
+    // small helper to clear pot before moving to next question
+    function prevSafeClearPot(mode: "hide" | "lock") {
+      try {
+        clearOrLockPot({ mode });
+      } catch {
+        /* noop */
+      }
+    }
+
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [
-    current,
-    nextQuestion,
-    prevQuestion,
-    toggleReveal,
-    resetReveals,
     addStrike,
-    addPointsToActiveTeam,
-    activeTeam,
+    prevQuestion,
+    nextQuestion,
+    resetReveals,
+    toggleReveal,
     setActiveTeam,
-    revealedTotal,
-    teams,
     toast,
   ]);
 
   if (!current)
-    return <div className={a.container}>Loading host controls…</div>;
+    return (
+      <div className={a.container}>
+        Loading host controls for round {currentRound}…{Toast}
+      </div>
+    );
+
+  // ---- UI -----------------------------------------------------------------
 
   return (
     <div className={a.container}>
-      {/* Sticky header with progress + active team */}
+      {/* Sticky header */}
       <div
         style={{
           position: "sticky",
@@ -165,7 +261,11 @@ export default function HostPage() {
             flexWrap: "wrap",
           }}
         >
-          <h1 style={{ margin: 0, fontSize: 20 }}>🎤 Host Controls</h1>
+          <h1 style={{ margin: 0, fontSize: 20 }}>
+            🎤 Host Controls — {roundInfo?.title || `Round ${currentRound}`}
+          </h1>
+
+          {/* Active team toggles */}
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             {teams.map((team, i) => (
               <button
@@ -175,6 +275,7 @@ export default function HostPage() {
                   variant: activeTeam === i ? "flavorGold" : "ghost",
                   size: "sm",
                 })}
+                title={`Set active team: ${team.name}`}
               >
                 {team.name} · {team.score}
               </button>
@@ -189,29 +290,51 @@ export default function HostPage() {
             justifyContent: "space-between",
             color: "#9aa6b2",
             fontSize: 13,
+            flexWrap: "wrap",
+            gap: 4,
           }}
         >
           <span>
-            Question {currentIndex + 1} of {questions.length}
+            Question {Math.min(currentIndex + 1, Math.max(questions.length, 1))}{" "}
+            of {questions.length || 0}
+          </span>
+          <span>
+            Category:{" "}
+            <strong style={{ color: "#F7C948" }}>
+              {roundInfo?.category || "General Knowledge"}
+            </strong>
           </span>
           <span>
             Revealed total:{" "}
             <strong style={{ color: "#F7C948" }}>{revealedTotal}</strong>
           </span>
-          <span style={{ opacity: 0.9 }}>
-            ⌨️ Shortcuts: 1–9 toggle • ←/→ nav • Space strike • A award • T swap
-          </span>
+        </div>
+
+        {/* Keyboard helper text */}
+        <div
+          style={{
+            marginTop: 6,
+            color: "#808da0",
+            fontSize: 12,
+            textAlign: "right",
+            fontStyle: "italic",
+          }}
+        >
+          ⌨️ Shortcuts: 1–9 toggle • ←/→ navigate • Space = strike • A = award •
+          T = swap teams • R = reset
         </div>
       </div>
 
-      {/* Question */}
+      {/* Question prompt */}
       <div style={{ marginTop: 16 }}>
-        <h2 style={{ marginTop: 8, lineHeight: 1.25 }}>{current.prompt}</h2>
+        <h2 style={{ marginTop: 8, lineHeight: 1.25 }}>
+          {current.prompt || "Untitled Question"}
+        </h2>
       </div>
 
-      {/* Answers list */}
+      {/* Answers */}
       <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
-        {current.answers.map((ans, i) => (
+        {(current.answers ?? []).map((ans, i) => (
           <div
             key={i}
             style={{
@@ -229,7 +352,7 @@ export default function HostPage() {
               {i + 1}
             </span>
             <span style={{ fontWeight: 600, opacity: ans.revealed ? 1 : 0.7 }}>
-              {ans.text}
+              {ans.text ?? "(blank)"}
             </span>
             <span
               style={{
@@ -238,8 +361,9 @@ export default function HostPage() {
                 fontVariantNumeric: "tabular-nums",
                 opacity: ans.revealed ? 1 : 0.6,
               }}
+              title={ans.awarded ? "Already awarded" : undefined}
             >
-              {ans.points}
+              {ans.points ?? 0}
             </span>
             <button
               onClick={() => toggleReveal(i)}
@@ -247,6 +371,7 @@ export default function HostPage() {
                 variant: ans.revealed ? "ghost" : "primary",
                 size: "sm",
               })}
+              title={ans.revealed ? "Hide answer" : "Reveal answer"}
             >
               {ans.revealed ? "Hide" : "Reveal"}
             </button>
@@ -254,7 +379,7 @@ export default function HostPage() {
         ))}
       </div>
 
-      {/* Strikes */}
+      {/* Strikes & host tools */}
       <div
         style={{
           marginTop: 28,
@@ -264,13 +389,14 @@ export default function HostPage() {
       >
         <h3>❌ Strikes</h3>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          {Array.from({ length: strikes }).map((_, i) => (
+          {Array.from({ length: Math.max(0, strikes) }).map((_, i) => (
             <span key={i} style={{ fontSize: 28, color: "#EF4444" }}>
               X
             </span>
           ))}
         </div>
-        {/* 🎮 Host Actions */}
+
+        {/* Controls */}
         <div
           style={{
             display: "flex",
@@ -284,11 +410,6 @@ export default function HostPage() {
             border: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          <h3 style={{ margin: "0 8px 0 0", fontSize: 15, opacity: 0.8 }}>
-            🎮 Host Controls:
-          </h3>
-
-          {/* ❌ Strike */}
           <button
             onClick={() => {
               addStrike();
@@ -296,66 +417,43 @@ export default function HostPage() {
               toast("❌ Strike added!");
             }}
             className={a.button({ variant: "secondary", size: "sm" })}
-            title="Add a strike (Space key)"
           >
             ❌ Add Strike
           </button>
 
-          {/* 🧹 Clear Strikes */}
           <button
             onClick={clearStrikes}
             className={a.button({ variant: "ghost", size: "sm" })}
-            title="Remove all strikes"
           >
             🧹 Clear Strikes
           </button>
 
-          {/* 🏆 Award Points */}
           <button
             onClick={() => {
-              if (activeTeam === null || revealedTotal <= 0) return;
-
-              // Capture state *right now* (no stale closure)
               const state = useGameStore.getState();
-              if (!state.current) return;
-              const teamIdx = state.activeTeam;
+              if (state.activeTeam === null) return;
               const pot = sumRevealed(state.current?.answers ?? []);
+              if (pot <= 0) return;
 
-              if (teamIdx === null || pot <= 0) return;
-
-              // ✅ Award points, but DO NOT reset reveals
-              state.addPointsToTeam(teamIdx, pot);
-
+              state.addPointsToTeam(state.activeTeam, pot);
               playSound("award");
-              toast(`🏆 +${pot} points to ${state.teams[teamIdx].name}!`);
+              toast(`🏆 +${pot} points to ${teams[state.activeTeam].name}!`);
 
-              // Instead of resetting, zero out the pot for this round:
-              // Mark those answers as already awarded
-              const updatedAnswers = state.current?.answers.map((a) => ({
-                ...a,
-                // add a new property "awarded" to prevent re-awarding
-                awarded: a.revealed ? true : a.awarded,
-              }));
-
-              if (updatedAnswers) {
-                state.current.answers = updatedAnswers;
-                const updatedQuestions = [...state.questions];
-                updatedQuestions[state.currentIndex] = {
-                  ...state.current,
-                  answers: updatedAnswers,
-                };
-                useGameStore.setState({ questions: updatedQuestions });
-              }
+              // prevent re-award
+              clearOrLockPot({ mode: "lock" });
             }}
             disabled={activeTeam === null || revealedTotal === 0}
             className={a.button({ variant: "flavorGreen", size: "sm" })}
-            title="Award revealed points to the active team (A key)"
+            title={
+              revealedTotal > 0
+                ? `Award +${revealedTotal} pts`
+                : "Nothing to award"
+            }
           >
-            🏆 Award{" "}
-            {revealedTotal > 0 ? `+${revealedTotal} pts` : "Revealed Points"}
+            🏆 Award {revealedTotal > 0 ? `+${revealedTotal} pts` : ""}
           </button>
 
-          {/* 🎯 Active Team Display */}
+          {/* Active team display */}
           <div
             style={{
               marginLeft: "auto",
@@ -385,7 +483,7 @@ export default function HostPage() {
         </div>
       </div>
 
-      {/* Footer buttons */}
+      {/* Footer navigation */}
       <section
         className={a.buttonsRow}
         style={{

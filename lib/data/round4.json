@@ -1,0 +1,46 @@
+{
+  "title": "Round 4: Final Faceoff",
+  "category": "Fast Money",
+  "questions": [
+    {
+      "prompt": "Name something you do to relax after work.",
+      "answers": [
+        { "text": "Watch TV", "points": 35 },
+        { "text": "Exercise", "points": 25 },
+        { "text": "Listen to music", "points": 20 },
+        { "text": "Cook/eat dinner", "points": 10 },
+        { "text": "Go for a walk", "points": 10 }
+      ]
+    },
+    {
+      "prompt": "Name something you might order at a smoothie bar.",
+      "answers": [
+        { "text": "Green smoothie", "points": 35 },
+        { "text": "Protein shake", "points": 25 },
+        { "text": "Berry mix", "points": 20 },
+        { "text": "Banana peanut butter", "points": 10 },
+        { "text": "AG1 + ice", "points": 10 }
+      ]
+    },
+    {
+      "prompt": "Name something people track with an app.",
+      "answers": [
+        { "text": "Steps or fitness", "points": 35 },
+        { "text": "Sleep", "points": 25 },
+        { "text": "Budget/spending", "points": 20 },
+        { "text": "Diet/calories", "points": 10 },
+        { "text": "Mood", "points": 10 }
+      ]
+    },
+    {
+      "prompt": "Name something that symbolizes success.",
+      "answers": [
+        { "text": "Trophy", "points": 40 },
+        { "text": "Promotion", "points": 25 },
+        { "text": "Car", "points": 15 },
+        { "text": "House", "points": 10 },
+        { "text": "Happiness", "points": 10 }
+      ]
+    }
+  ]
+}

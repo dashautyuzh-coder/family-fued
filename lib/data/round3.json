@@ -1,0 +1,46 @@
+{
+  "title": "Round 3: Lightning Round",
+  "category": "Pop Culture & Fun",
+  "questions": [
+    {
+      "prompt": "Name a popular streaming platform.",
+      "answers": [
+        { "text": "Netflix", "points": 40 },
+        { "text": "YouTube", "points": 30 },
+        { "text": "Hulu", "points": 15 },
+        { "text": "Disney+", "points": 10 },
+        { "text": "Amazon Prime Video", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name a social media app people open daily.",
+      "answers": [
+        { "text": "Instagram", "points": 35 },
+        { "text": "TikTok", "points": 30 },
+        { "text": "LinkedIn", "points": 20 },
+        { "text": "X/Twitter", "points": 10 },
+        { "text": "Facebook", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name a sport that requires a ball.",
+      "answers": [
+        { "text": "Soccer", "points": 35 },
+        { "text": "Basketball", "points": 25 },
+        { "text": "Baseball", "points": 20 },
+        { "text": "Tennis", "points": 10 },
+        { "text": "Volleyball", "points": 10 }
+      ]
+    },
+    {
+      "prompt": "Name something you bring to a picnic.",
+      "answers": [
+        { "text": "Food", "points": 40 },
+        { "text": "Blanket", "points": 25 },
+        { "text": "Drinks", "points": 15 },
+        { "text": "Friends", "points": 10 },
+        { "text": "Bug spray", "points": 5 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Round 2: Team Life Round",
+  "category": "Work & Collaboration",
+  "questions": [
+    {
+      "prompt": "Name a common reason for being late to a meeting.",
+      "answers": [
+        { "text": "Previous meeting ran over", "points": 35 },
+        { "text": "Forgot the time", "points": 25 },
+        { "text": "Tech issues", "points": 20 },
+        { "text": "Coffee run", "points": 15 },
+        { "text": "Dog/pet distraction", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name something that happens during a Zoom call.",
+      "answers": [
+        { "text": "Someone forgets to unmute", "points": 40 },
+        { "text": "Tech/audio issues", "points": 25 },
+        { "text": "Awkward silence", "points": 20 },
+        { "text": "Pet or kid interruption", "points": 10 },
+        { "text": "Someone freezes mid-sentence", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name something that makes a good teammate.",
+      "answers": [
+        { "text": "Good communication", "points": 35 },
+        { "text": "Positive attitude", "points": 25 },
+        { "text": "Dependability", "points": 20 },
+        { "text": "Sense of humor", "points": 10 },
+        { "text": "Good snacks", "points": 5 }
+      ]
+    },
+    {
+      "prompt": "Name something you'd find on a coworker’s desk.",
+      "answers": [
+        { "text": "Coffee mug", "points": 35 },
+        { "text": "Laptop", "points": 25 },
+        { "text": "Water bottle", "points": 20 },
+        { "text": "Plants", "points": 10 },
+        { "text": "Sticky notes", "points": 10 }
+      ]
+    }
+  ]
+}

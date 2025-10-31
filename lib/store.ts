@@ -38,6 +38,14 @@ interface GameStore {
 
   faceoffQuestion: Question | null;
   setFaceoffQuestion: (q: Question | null) => void;
+
+  currentRound: number;
+  setRound: (currentRound: number) => void;
+
+  roundBaselineScores: [number, number];
+  setRoundBaseline: () => void;
+  getRoundDeltas: () => [number, number];
+
   resetAll: () => void;
 }
 
@@ -158,10 +166,26 @@ export const useGameStore = create<GameStore>()(
 
       faceoffQuestion: null,
       setFaceoffQuestion: (q) => set({ faceoffQuestion: q }),
+      currentRound: 1,
+      setRound: (r) => set({ currentRound: r }),
+      roundBaselineScores: [0, 0],
 
+      setRoundBaseline: () => {
+        const { teams } = get();
+        set({ roundBaselineScores: [teams[0].score, teams[1].score] });
+      },
+
+      getRoundDeltas: () => {
+        const { teams, roundBaselineScores } = get();
+        return [
+          Math.max(0, teams[0].score - (roundBaselineScores?.[0] ?? 0)),
+          Math.max(0, teams[1].score - (roundBaselineScores?.[1] ?? 0)),
+        ];
+      },
       resetAll: () => {
         set({
           questions: [],
+          roundBaselineScores: [0, 0],
           currentIndex: 0,
           current: null,
           strikes: 0,
@@ -169,6 +193,7 @@ export const useGameStore = create<GameStore>()(
           faceoffDone: false,
           faceoffWinner: null,
           faceoffQuestion: null,
+          currentRound: 1,
           teams: [
             { name: "Ctrl+Alt+Defeat", score: 0, strikes: 0 },
             { name: "Lettuce Win", score: 0, strikes: 0 },

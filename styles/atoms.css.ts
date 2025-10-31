@@ -1,5 +1,5 @@
 // styles/atoms.css.ts
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "./theme.css";
 
@@ -24,6 +24,24 @@ export const grid = style({
   "@media": {
     "(max-width: 900px)": { gridTemplateColumns: "1fr" },
   },
+});
+
+// 🔔 Animations
+const pulseGlow = keyframes({
+  "0%": { boxShadow: `0 0 0px rgba(0,0,0,0)` },
+  "50%": { boxShadow: `0 0 28px rgba(255,255,255,0.20)` },
+  "100%": { boxShadow: `0 0 0px rgba(0,0,0,0)` },
+});
+
+const ding = keyframes({
+  "0%": { transform: "translateY(0) scale(1)" },
+  "40%": { transform: "translateY(-2px) scale(1.08)" },
+  "100%": { transform: "translateY(0) scale(1)" },
+});
+
+const sheen = keyframes({
+  "0%": { transform: "translateX(-120%) rotate(20deg)" },
+  "100%": { transform: "translateX(220%) rotate(20deg)" },
 });
 
 // Cards
@@ -63,6 +81,10 @@ export const card = recipe({
       pink: {
         background: `linear-gradient(180deg, rgba(185, 28, 217, 0.16), transparent)`,
         borderColor: vars.color.flavorPink,
+      },
+      blue: {
+        background: `linear-gradient(180deg, rgba(82, 10, 96, 0.16), transparent)`,
+        borderColor: vars.color.accent,
       },
     },
     clickable: {
@@ -145,6 +167,7 @@ export const button = recipe({
       sm: { padding: `${vars.space[1]} ${vars.space[3]}` },
       md: { padding: `${vars.space[2]} ${vars.space[4]}` },
       lg: { padding: `${vars.space[3]} ${vars.space[5]}` },
+      xl: { padding: `${vars.space[4]} ${vars.space[8]}` },
     },
   },
   defaultVariants: { variant: "primary", size: "md" },
@@ -168,4 +191,64 @@ export const buttonsRow = style({
   gap: vars.space[3],
   flexWrap: "wrap",
   alignItems: "center",
+});
+
+// 🟡 Generic buzzer pill (mix with your recipe)
+export const buzzer = style({
+  position: "relative",
+  overflow: "hidden",
+  borderRadius: 9999,
+  letterSpacing: ".2px",
+  textTransform: "none",
+  paddingInline: vars.space[10],
+  minHeight: 64,
+  fontSize: "1.15rem",
+  gap: vars.space[3],
+  // subtle breathing glow
+  selectors: {
+    "&:not(:disabled):hover": {
+      animation: `${pulseGlow} 2s ease-in-out infinite`,
+      transform: "translateY(-1px)",
+    },
+    "&:active": {
+      transform: "translateY(0)",
+    },
+    "&:focus-visible": {
+      outline: `2px solid ${vars.color.gold}`,
+      outlineOffset: 2,
+    },
+    // ✨ Sheen sweep
+    "&::before": {
+      content: "",
+      position: "absolute",
+      inset: 0,
+      background:
+        "linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 15%, transparent 30%)",
+      transform: "translateX(-120%) rotate(20deg)",
+      pointerEvents: "none",
+    },
+    "&:hover::before": {
+      animation: `${sheen} 950ms ease`,
+    },
+  },
+});
+
+// Color-tuned outer glow per team
+export const buzzerGreen = style({
+  boxShadow: `0 8px 30px rgba(43, 182, 115, 0.25)`,
+});
+export const buzzerPink = style({
+  boxShadow: `0 8px 30px rgba(229, 101, 126, 0.25)`,
+});
+
+// Bigger bell + tiny bounce on hover
+export const btnEmoji = style({
+  fontSize: "1.35em",
+  lineHeight: 1,
+  display: "inline-block",
+  selectors: {
+    [`${buzzer}:hover &`]: {
+      animation: `${ding} 450ms cubic-bezier(.2,.9,.2,1)`,
+    },
+  },
 });
