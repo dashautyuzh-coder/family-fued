@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGameStore } from "@/lib/store";
@@ -8,7 +8,7 @@ import { vars } from "@/styles/theme.css";
 import * as a from "@/styles/atoms.css";
 import { playSound } from "@/lib/sounds";
 
-// --- Brand word banks (short, on-brand; you can add more) ---
+// --- Brand word banks ---
 const WORDS_AG1 = [
   "Tropical",
   "Vibrant",
@@ -38,7 +38,7 @@ const WORDS_AGZ = [
   "Truffle",
 ];
 
-type Step = "intro" | "team1" | "team2" | "review";
+type Step = "team1" | "team2" | "review";
 type Brand = "AG1" | "AGZ";
 
 function sampleTwo(bank: string[]) {
@@ -54,14 +54,14 @@ export default function OnboardingPage() {
   const router = useRouter();
   const { setTeamName, resetScoresAndStrikes, teams } = useGameStore();
 
-  const [step, setStep] = useState<Step>("intro");
+  const [step, setStep] = useState<Step>("team1");
   const [brand1, setBrand1] = useState<Brand>("AG1");
   const [brand2, setBrand2] = useState<Brand>("AGZ");
 
   const [w1, setW1] = useState<[string, string] | null>(null);
   const [w2, setW2] = useState<[string, string] | null>(null);
 
-  // ── Helpers ─────────────────────────────────────────────────────────────────
+  // Helpers
   const roll1 = useCallback(() => {
     const [a, b] = sampleTwo(brand1 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
     setW1([a, b]);
@@ -77,25 +77,13 @@ export default function OnboardingPage() {
   const next = useCallback(() => {
     playSound?.("ding");
     setStep((s) =>
-      s === "intro"
-        ? "team1"
-        : s === "team1"
-        ? "team2"
-        : s === "team2"
-        ? "review"
-        : "review"
+      s === "team1" ? "team2" : s === "team2" ? "review" : "review"
     );
   }, []);
 
   const back = useCallback(() => {
     setStep((s) =>
-      s === "review"
-        ? "team2"
-        : s === "team2"
-        ? "team1"
-        : s === "team1"
-        ? "intro"
-        : "intro"
+      s === "review" ? "team2" : s === "team2" ? "team1" : "team1"
     );
   }, []);
 
@@ -109,21 +97,22 @@ export default function OnboardingPage() {
     router.push("/faceoff");
   }, [w1, w2, setTeamName, resetScoresAndStrikes, router, teams]);
 
-  // keyboard: Enter=next / R=roll / Backspace=back (except in inputs)
+  // Keyboard: Enter=next/start • R=roll • Backspace/Esc=back (except when typing)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
       const isTyping = tag === "input" || tag === "textarea";
-      if (e.key.toLowerCase() === "r" && !isTyping) {
+      if (isTyping) return;
+
+      const k = e.key.toLowerCase();
+      if (k === "r") {
         if (step === "team1") roll1();
         if (step === "team2") roll2();
-      }
-      if (e.key === "Enter" && !isTyping) {
+      } else if (e.key === "Enter") {
         e.preventDefault();
         if (step === "review") startFaceoff();
         else next();
-      }
-      if ((e.key === "Backspace" || e.key === "Escape") && !isTyping) {
+      } else if (e.key === "Backspace" || k === "escape") {
         e.preventDefault();
         back();
       }
@@ -132,13 +121,13 @@ export default function OnboardingPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [step, next, back, roll1, roll2, startFaceoff]);
 
-  // ── Visual tokens ───────────────────────────────────────────────────────────
+  // Visual tokens
   const accent1 =
     brand1 === "AG1" ? vars.color.flavorGreen : vars.color.flavorPink;
   const accent2 =
     brand2 === "AG1" ? vars.color.flavorGreen : vars.color.flavorPink;
 
-  // ── Reusable UI parts ───────────────────────────────────────────────────────
+  // Reusable UI
   const Slot = ({
     value,
     onChange,
@@ -165,7 +154,6 @@ export default function OnboardingPage() {
         minWidth: big ? 220 : 200,
       }}
     >
-      {/* soft inner glow */}
       <motion.div
         aria-hidden
         animate={{ opacity: [0.12, 0.24, 0.12] }}
@@ -244,7 +232,7 @@ export default function OnboardingPage() {
     </section>
   );
 
-  // ── Page ────────────────────────────────────────────────────────────────────
+  // Page
   return (
     <main
       style={{
@@ -256,7 +244,7 @@ export default function OnboardingPage() {
         overflow: "hidden",
       }}
     >
-      {/* Cinematic background (subtle, premium) */}
+      {/* Background */}
       <motion.div
         aria-hidden
         animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
@@ -284,71 +272,7 @@ export default function OnboardingPage() {
       />
 
       <AnimatePresence mode="wait">
-        {/* Step: Intro */}
-        {step === "intro" && (
-          <motion.div
-            key="intro"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            style={{ textAlign: "center", zIndex: 2 }}
-          >
-            <h1
-              style={{ fontSize: "3rem", letterSpacing: "0.02em", margin: 0 }}
-            >
-              Team Name Creator
-            </h1>
-            <p style={{ color: "#A7B8C8", marginTop: 8 }}>
-              Two quick steps, then you’re off to the Face-Off.
-            </p>
-
-            {/* Hero start button (round, pulsing, but restrained) */}
-            <motion.button
-              onClick={next}
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.96 }}
-              animate={{ scale: [1, 1.03, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className={a.button({ variant: "flavorGold", size: "lg" })}
-              style={{
-                marginTop: 22,
-                padding: "1.2rem 2.2rem",
-                borderRadius: 999,
-                fontWeight: 900,
-                letterSpacing: "0.06em",
-                position: "relative",
-                overflow: "hidden",
-              }}
-              title="Press Enter to begin"
-            >
-              <motion.span
-                aria-hidden
-                animate={{ x: ["-130%", "130%"] }}
-                transition={{
-                  duration: 2.4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
-                  transform: "skewX(-20deg)",
-                  pointerEvents: "none",
-                }}
-              />
-              Start
-            </motion.button>
-
-            <div style={{ marginTop: 10, color: "#7d8ea0", fontSize: 12 }}>
-              Tip: Press <kbd>Enter</kbd> to continue
-            </div>
-          </motion.div>
-        )}
-
-        {/* Step: Team 1 */}
+        {/* Team 1 */}
         {step === "team1" && (
           <motion.div
             key="team1"
@@ -387,7 +311,6 @@ export default function OnboardingPage() {
                 }
               />
 
-              {/* Slots row */}
               <div
                 style={{
                   display: "flex",
@@ -421,7 +344,6 @@ export default function OnboardingPage() {
                 />
               </div>
 
-              {/* Controls */}
               <div
                 style={{
                   display: "flex",
@@ -449,7 +371,7 @@ export default function OnboardingPage() {
           </motion.div>
         )}
 
-        {/* Step: Team 2 */}
+        {/* Team 2 */}
         {step === "team2" && (
           <motion.div
             key="team2"
@@ -548,7 +470,7 @@ export default function OnboardingPage() {
           </motion.div>
         )}
 
-        {/* Step: Review */}
+        {/* Review */}
         {step === "review" && (
           <motion.div
             key="review"
