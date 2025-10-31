@@ -624,6 +624,12 @@ export default function SetupPage() {
         >
           🎲 Open Game →
         </button>
+        <button
+          onClick={() => router.push("/questions")}
+          className={a.button({ variant: "ghost", size: "lg" })}
+        >
+          Questions →
+        </button>
       </section>
 
       <ConfettiBurst show={burst} />
