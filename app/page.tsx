@@ -1,102 +1,12 @@
 "use client";
-
-import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import * as atoms from "@/styles/atoms.css";
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    const t = setTimeout(() => setShowSplash(false), 2500);
-    return () => clearTimeout(t);
-  }, []);
-
-  const dismiss = useCallback(() => setShowSplash(false), []);
-
   return (
     <>
-      {/* ── Splash Intro ─────────────────────────────── */}
-      <AnimatePresence>
-        {showSplash && (
-          <motion.div
-            key="splash"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            onClick={dismiss}
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 1000,
-              display: "grid",
-              placeItems: "center",
-              background:
-                "radial-gradient(1200px 800px at 50% -10%, #0e1b47, #020817 85%)",
-              color: "white",
-              cursor: "pointer",
-              overflow: "hidden",
-            }}
-            title="Press Enter or click to continue"
-          >
-            {/* Subtle ambient wash */}
-            <motion.div
-              aria-hidden
-              animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-              transition={{
-                duration: 12,
-                repeat: Infinity,
-                repeatType: "mirror",
-              }}
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(135deg, rgba(43,182,115,0.25), rgba(247,201,72,0.22), rgba(25,64,175,0.2))",
-                filter: "blur(90px)",
-                mixBlendMode: "overlay",
-                pointerEvents: "none",
-              }}
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              style={{ textAlign: "center" }}
-            >
-              <Image
-                src="/ag1-ff-logo.png"
-                alt="AG1 Family Feud"
-                width={420}
-                height={420}
-                priority
-                style={{
-                  objectFit: "contain",
-                  filter:
-                    "drop-shadow(0 0 20px rgba(255,255,180,0.4)) drop-shadow(0 0 40px rgba(43,182,115,0.3))",
-                }}
-              />
-              <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                style={{
-                  color: "#A7B8C8",
-                  marginTop: 8,
-                  letterSpacing: "0.05em",
-                }}
-              >
-                Get ready for the showdown…
-              </motion.p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* ── Main Content ─────────────────────────────── */}
       <main
         className={atoms.container}
