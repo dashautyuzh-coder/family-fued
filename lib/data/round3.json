@@ -1,45 +1,41 @@
 {
-  "title": "Round 3: Lightning Round",
-  "category": "Pop Culture & Fun",
+  "title": "Round 3: Without One (The Chaos Round)",
+  "category": "Pain Points",
   "questions": [
     {
-      "prompt": "Name a popular streaming platform.",
+      "prompt": "What happens when every team uses their own styles?",
       "answers": [
-        { "text": "Netflix", "points": 40 },
-        { "text": "YouTube", "points": 30 },
-        { "text": "Hulu", "points": 15 },
-        { "text": "Disney+", "points": 10 },
-        { "text": "Amazon Prime Video", "points": 5 }
+        { "text": "Inconsistent UI/brand drift", "points": 40 },
+        { "text": "Multiple button styles", "points": 30 },
+        { "text": "Different shades of 'AG1 green'", "points": 20 },
+        { "text": "Confusing handoffs & specs", "points": 10 }
       ]
     },
     {
-      "prompt": "Name a social media app people open daily.",
+      "prompt": "Name a common symptom of design inconsistency.",
       "answers": [
-        { "text": "Instagram", "points": 35 },
-        { "text": "TikTok", "points": 30 },
-        { "text": "LinkedIn", "points": 20 },
-        { "text": "X/Twitter", "points": 10 },
-        { "text": "Facebook", "points": 5 }
+        { "text": "Misaligned spacing/typography", "points": 35 },
+        { "text": "Accessibility issues pile up", "points": 30 },
+        { "text": "Extra QA cycles", "points": 20 },
+        { "text": "Customer trust takes a hit", "points": 10 }
       ]
     },
     {
-      "prompt": "Name a sport that requires a ball.",
+      "prompt": "What bugs show up when components aren’t shared?",
       "answers": [
-        { "text": "Soccer", "points": 35 },
-        { "text": "Basketball", "points": 25 },
-        { "text": "Baseball", "points": 20 },
-        { "text": "Tennis", "points": 10 },
-        { "text": "Volleyball", "points": 10 }
+        { "text": "Edge-case states missing", "points": 35 },
+        { "text": "Interaction/hover inconsistencies", "points": 30 },
+        { "text": "Visual regressions across pages", "points": 20 },
+        { "text": "Mobile/responsive drift", "points": 10 }
       ]
     },
     {
-      "prompt": "Name something you bring to a picnic.",
+      "prompt": "What do devs spend too much time doing without a system?",
       "answers": [
-        { "text": "Food", "points": 40 },
-        { "text": "Blanket", "points": 25 },
-        { "text": "Drinks", "points": 15 },
-        { "text": "Friends", "points": 10 },
-        { "text": "Bug spray", "points": 5 }
+        { "text": "Rebuilding the same UI again", "points": 40 },
+        { "text": "Chasing down one-off Sass overrides", "points": 30 },
+        { "text": "Debugging style regressions", "points": 20 },
+        { "text": "Explaining decisions over and over", "points": 10 }
       ]
     }
   ]

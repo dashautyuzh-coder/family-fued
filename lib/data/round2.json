@@ -1,45 +1,42 @@
 {
-  "title": "Round 2: Team Life Round",
-  "category": "Work & Collaboration",
+  "title": "Round 2: Why We Need One (The Business Case)",
+  "category": "Value & Outcomes",
   "questions": [
     {
-      "prompt": "Name a common reason for being late to a meeting.",
+      "prompt": "What slows AG1 down without a design system?",
       "answers": [
-        { "text": "Previous meeting ran over", "points": 35 },
-        { "text": "Forgot the time", "points": 25 },
-        { "text": "Tech issues", "points": 20 },
-        { "text": "Coffee run", "points": 15 },
-        { "text": "Dog/pet distraction", "points": 5 }
+        { "text": "Inconsistent components across teams", "points": 40 },
+        { "text": "Sass one-offs/duplicate CSS", "points": 30 },
+        { "text": "Rework & back-and-forth handoffs", "points": 20 },
+        { "text": "Harder QA & accessibility fixes", "points": 10 }
       ]
     },
     {
-      "prompt": "Name something that happens during a Zoom call.",
+      "prompt": "Name a measurable benefit of a design system.",
       "answers": [
-        { "text": "Someone forgets to unmute", "points": 40 },
-        { "text": "Tech/audio issues", "points": 25 },
-        { "text": "Awkward silence", "points": 20 },
-        { "text": "Pet or kid interruption", "points": 10 },
-        { "text": "Someone freezes mid-sentence", "points": 5 }
+        { "text": "Faster time-to-ship", "points": 40 },
+        { "text": "Reduced maintenance cost", "points": 30 },
+        { "text": "Fewer UI bugs", "points": 20 },
+        { "text": "Higher consistency/brand trust", "points": 10 }
       ]
     },
     {
-      "prompt": "Name something that makes a good teammate.",
+      "prompt": "Who benefits most day-to-day from AG1’s design system?",
       "answers": [
-        { "text": "Good communication", "points": 35 },
-        { "text": "Positive attitude", "points": 25 },
-        { "text": "Dependability", "points": 20 },
-        { "text": "Sense of humor", "points": 10 },
-        { "text": "Good snacks", "points": 5 }
+        { "text": "Engineers (reusable code)", "points": 35 },
+        { "text": "Designers (single Figma source)", "points": 30 },
+        { "text": "Product managers (predictable scope)", "points": 20 },
+        { "text": "QA/Accessibility reviewers", "points": 10 },
+        { "text": "Leadership (velocity/quality)", "points": 5 }
       ]
     },
     {
-      "prompt": "Name something you'd find on a coworker’s desk.",
+      "prompt": "How does a design system help AG1 launch faster?",
       "answers": [
-        { "text": "Coffee mug", "points": 35 },
-        { "text": "Laptop", "points": 25 },
-        { "text": "Water bottle", "points": 20 },
-        { "text": "Plants", "points": 10 },
-        { "text": "Sticky notes", "points": 10 }
+        { "text": "Prebuilt components & patterns", "points": 40 },
+        { "text": "Clear decisions reduce debate", "points": 30 },
+        { "text": "Less rework across teams", "points": 20 },
+        { "text": "Easier experiments & variants", "points": 10 }
       ]
     }
   ]

@@ -1,45 +1,41 @@
 {
-  "title": "Round 4: Final Faceoff",
-  "category": "Fast Money",
+  "title": "Round 4: Making It Real at AG1",
+  "category": "Adoption & Next Steps",
   "questions": [
     {
-      "prompt": "Name something you do to relax after work.",
+      "prompt": "What should AG1 standardize first in the design system?",
       "answers": [
-        { "text": "Watch TV", "points": 35 },
-        { "text": "Exercise", "points": 25 },
-        { "text": "Listen to music", "points": 20 },
-        { "text": "Cook/eat dinner", "points": 10 },
-        { "text": "Go for a walk", "points": 10 }
+        { "text": "Design tokens (color, type, spacing)", "points": 40 },
+        { "text": "Core components (Buttons, Inputs)", "points": 30 },
+        { "text": "Grid/spacing & responsive rules", "points": 20 },
+        { "text": "Accessibility guidelines", "points": 10 }
       ]
     },
     {
-      "prompt": "Name something you might order at a smoothie bar.",
+      "prompt": "What’s the biggest win if AG1 adopts one system across AG1 + AGZ?",
       "answers": [
-        { "text": "Green smoothie", "points": 35 },
-        { "text": "Protein shake", "points": 25 },
-        { "text": "Berry mix", "points": 20 },
-        { "text": "Banana peanut butter", "points": 10 },
-        { "text": "AG1 + ice", "points": 10 }
+        { "text": "One consistent brand experience", "points": 40 },
+        { "text": "Shared code = faster teams", "points": 30 },
+        { "text": "Less rework between orgs", "points": 20 },
+        { "text": "Easier onboarding & scaling", "points": 10 }
       ]
     },
     {
-      "prompt": "Name something people track with an app.",
+      "prompt": "How can product teams support the design system?",
       "answers": [
-        { "text": "Steps or fitness", "points": 35 },
-        { "text": "Sleep", "points": 25 },
-        { "text": "Budget/spending", "points": 20 },
-        { "text": "Diet/calories", "points": 10 },
-        { "text": "Mood", "points": 10 }
+        { "text": "Plan work around system components first", "points": 35 },
+        { "text": "Prioritize adoption in roadmaps", "points": 30 },
+        { "text": "Give feedback & file gaps", "points": 20 },
+        { "text": "Avoid one-off custom requests", "points": 10 }
       ]
     },
     {
-      "prompt": "Name something that symbolizes success.",
+      "prompt": "What mistake should AG1 avoid while rolling it out?",
       "answers": [
-        { "text": "Trophy", "points": 40 },
-        { "text": "Promotion", "points": 25 },
-        { "text": "Car", "points": 15 },
-        { "text": "House", "points": 10 },
-        { "text": "Happiness", "points": 10 }
+        { "text": "No owners/governance", "points": 40 },
+        { "text": "Letting tokens drift", "points": 30 },
+        { "text": "Shipping components without docs", "points": 20 },
+        { "text": "Ignoring adoption metrics", "points": 10 }
       ]
     }
   ]

@@ -1,57 +1,112 @@
 [
   {
-    "id": "fo-1",
-    "prompt": "Name a household chore people often put off.",
+    "id": "f1",
+    "prompt": "What’s something you can’t start your morning without?",
     "answers": [
-      { "text": "Laundry", "points": 40 },
-      { "text": "Dishes", "points": 30 },
-      { "text": "Vacuuming", "points": 15 },
-      { "text": "Cleaning the bathroom", "points": 10 },
-      { "text": "Taking out trash", "points": 5 }
+      { "text": "Coffee", "points": 40 },
+      { "text": "AG1", "points": 30 },
+      { "text": "Music or a podcast", "points": 15 },
+      { "text": "Checking phone", "points": 10 },
+      { "text": "Silence / peace", "points": 5 }
     ]
   },
   {
-    "id": "fo-2",
-    "prompt": "Name something people check on their phone first thing in the morning.",
+    "id": "f2",
+    "prompt": "What’s a small thing that instantly makes your day better?",
     "answers": [
-      { "text": "Messages", "points": 35 },
-      { "text": "Email", "points": 25 },
-      { "text": "Social media", "points": 20 },
-      { "text": "Weather", "points": 10 },
-      { "text": "News", "points": 10 }
+      { "text": "A compliment", "points": 35 },
+      { "text": "Sunshine", "points": 25 },
+      { "text": "Snack or treat", "points": 20 },
+      { "text": "Good meme in Slack", "points": 15 },
+      { "text": "Finishing a task early", "points": 5 }
     ]
   },
   {
-    "id": "fo-3",
-    "prompt": "Name a common reason people skip the gym.",
+    "id": "f3",
+    "prompt": "What’s a hobby or activity that helps you unwind after work?",
     "answers": [
-      { "text": "Too tired", "points": 35 },
-      { "text": "No time/busy", "points": 30 },
-      { "text": "Not feeling well", "points": 15 },
-      { "text": "Bad weather", "points": 10 },
-      { "text": "Forgot gear", "points": 10 }
+      { "text": "Going to the gym", "points": 35 },
+      { "text": "Watching shows or movies", "points": 25 },
+      { "text": "Cooking", "points": 15 },
+      { "text": "Reading", "points": 15 },
+      { "text": "Walking or being outdoors", "points": 10 }
     ]
   },
   {
-    "id": "fo-4",
-    "prompt": "Name a snack you often find in an office.",
+    "id": "f4",
+    "prompt": "What’s something that makes people instantly likable?",
     "answers": [
-      { "text": "Chips", "points": 30 },
-      { "text": "Fruit", "points": 25 },
-      { "text": "Granola bars", "points": 20 },
-      { "text": "Cookies", "points": 15 },
-      { "text": "Nuts", "points": 10 }
+      { "text": "A good sense of humor", "points": 40 },
+      { "text": "Kindness", "points": 25 },
+      { "text": "Good energy / positivity", "points": 20 },
+      { "text": "Listening skills", "points": 10 },
+      { "text": "A great laugh", "points": 5 }
     ]
   },
   {
-    "id": "fo-5",
-    "prompt": "Name a browser feature people use all the time.",
+    "id": "f5",
+    "prompt": "If you could instantly become great at one thing, what would it be?",
+    "answers": [
+      { "text": "Playing an instrument", "points": 30 },
+      { "text": "Cooking or baking", "points": 25 },
+      { "text": "Public speaking", "points": 20 },
+      { "text": "Coding or design", "points": 15 },
+      { "text": "Time management", "points": 10 }
+    ]
+  },
+  {
+    "id": "f6",
+    "prompt": "What’s something people collect without realizing it?",
     "answers": [
       { "text": "Tabs", "points": 35 },
-      { "text": "Bookmarks", "points": 25 },
-      { "text": "History", "points": 15 },
-      { "text": "Autofill", "points": 15 },
-      { "text": "Incognito/Private mode", "points": 10 }
+      { "text": "Emails", "points": 25 },
+      { "text": "Water bottles", "points": 20 },
+      { "text": "Tote bags", "points": 10 },
+      { "text": "Screenshots", "points": 10 }
+    ]
+  },
+  {
+    "id": "f7",
+    "prompt": "What’s your go-to comfort food?",
+    "answers": [
+      { "text": "Pizza", "points": 35 },
+      { "text": "Pasta", "points": 25 },
+      { "text": "Chocolate", "points": 20 },
+      { "text": "Soup", "points": 10 },
+      { "text": "Ice cream", "points": 10 }
+    ]
+  },
+  {
+    "id": "f8",
+    "prompt": "What’s something people always say they’ll do ‘next week’?",
+    "answers": [
+      { "text": "Start working out", "points": 35 },
+      { "text": "Clean their place", "points": 25 },
+      { "text": "Meal prep", "points": 20 },
+      { "text": "Start reading a book", "points": 10 },
+      { "text": "Go to bed earlier", "points": 10 }
+    ]
+  },
+  {
+    "id": "f9",
+    "prompt": "What’s something that makes you feel instantly old?",
+    "answers": [
+      { "text": "New slang", "points": 30 },
+      { "text": "TikTok trends", "points": 25 },
+      { "text": "Music from high school on the radio", "points": 20 },
+      { "text": "Standing up too fast", "points": 15 },
+      { "text": "Seeing 2000s fashion again", "points": 10 }
+    ]
+  },
+  {
+    "id": "f10",
+    "prompt": "What’s something people do at offsites that becomes instant legend?",
+    "answers": [
+      { "text": "Embarrassing karaoke", "points": 35 },
+      { "text": "Late-night deep talks", "points": 25 },
+      { "text": "Spontaneous dance-off", "points": 20 },
+      { "text": "Accidentally start a meme", "points": 10 },
+      { "text": "Mix up AG1 and AGZ", "points": 10 }
     ]
   }
 ]

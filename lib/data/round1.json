@@ -1,44 +1,44 @@
 {
-  "title": "Round 1: Warm-Up Round",
-  "category": "Daily Routines",
+  "title": "Round 1: What is a Design System? (Warm-Up Round)",
+  "category": "Design Foundations",
   "questions": [
     {
-      "prompt": "Name something people do first thing in the morning.",
+      "prompt": "Name something you might find in a design system",
       "answers": [
-        { "text": "Brush teeth", "points": 35 },
-        { "text": "Check phone", "points": 30 },
-        { "text": "Drink water or coffee", "points": 20 },
-        { "text": "Shower", "points": 10 },
-        { "text": "Exercise", "points": 5 }
+        { "text": "Color tokens", "points": 35 },
+        { "text": "Buttons", "points": 30 },
+        { "text": "Typography styles", "points": 20 },
+        { "text": "Spacing or grid system", "points": 10 },
+        { "text": "Icons", "points": 5 }
       ]
     },
     {
-      "prompt": "Name something people forget at home when they leave for work.",
+      "prompt": "What slows teams down when there’s no design system?",
       "answers": [
-        { "text": "Phone", "points": 40 },
-        { "text": "Keys", "points": 30 },
-        { "text": "Wallet", "points": 20 },
-        { "text": "Lunch", "points": 10 }
+        { "text": "Inconsistent components", "points": 40 },
+        { "text": "Too much Sass spaghetti", "points": 30 },
+        { "text": "Duplicate design work", "points": 20 },
+        { "text": "Engineering rework", "points": 10 }
       ]
     },
     {
-      "prompt": "Name a beverage people drink to start their day.",
+      "prompt": "Name a benefit of having a design system at AG1",
       "answers": [
-        { "text": "Coffee", "points": 40 },
-        { "text": "Tea", "points": 25 },
-        { "text": "Water", "points": 20 },
-        { "text": "Juice", "points": 10 },
-        { "text": "AG1", "points": 5 }
+        { "text": "Consistency across AG1 + AGZ", "points": 40 },
+        { "text": "Faster shipping", "points": 25 },
+        { "text": "Cleaner codebase", "points": 20 },
+        { "text": "Happier designers", "points": 10 },
+        { "text": "Less arguing over button styles", "points": 5 }
       ]
     },
     {
-      "prompt": "Name something that might make you late for work.",
+      "prompt": "What’s something that might make your design system fail?",
       "answers": [
-        { "text": "Traffic", "points": 40 },
-        { "text": "Oversleeping", "points": 30 },
-        { "text": "Forgot something", "points": 15 },
-        { "text": "Public transport delay", "points": 10 },
-        { "text": "Coffee stop", "points": 5 }
+        { "text": "No ownership", "points": 40 },
+        { "text": "Outdated tokens", "points": 30 },
+        { "text": "Ignoring feedback", "points": 15 },
+        { "text": "Too much process", "points": 10 },
+        { "text": "Nobody using it", "points": 5 }
       ]
     }
   ]
