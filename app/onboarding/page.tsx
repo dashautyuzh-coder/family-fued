@@ -65,13 +65,13 @@ export default function OnboardingPage() {
   const roll1 = useCallback(() => {
     const [a, b] = sampleTwo(brand1 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
     setW1([a, b]);
-    sound.play?.("faceoff:random");
+    sound.play?.("award");
   }, [brand1]);
 
   const roll2 = useCallback(() => {
     const [a, b] = sampleTwo(brand2 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
     setW2([a, b]);
-    sound.play?.("faceoff:random");
+    sound.play?.("award");
   }, [brand2]);
 
   const next = useCallback(() => {
