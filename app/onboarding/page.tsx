@@ -75,7 +75,6 @@ export default function OnboardingPage() {
   }, [brand2]);
 
   const next = useCallback(() => {
-    sound.play?.("winner");
     setStep((s) =>
       s === "team1" ? "team2" : s === "team2" ? "review" : "review"
     );
@@ -93,7 +92,6 @@ export default function OnboardingPage() {
     setTeamName(0, name1);
     setTeamName(1, name2);
     resetScoresAndStrikes();
-    sound.play?.("faceoff:random");
     router.push("/faceoff");
   }, [w1, w2, setTeamName, resetScoresAndStrikes, router, teams]);
 
