@@ -8,6 +8,7 @@ import confetti from "canvas-confetti";
 import { useGameStore } from "@/lib/store";
 import * as a from "@/styles/atoms.css";
 import { vars } from "@/styles/theme.css";
+import { sound } from "@/lib/sounds";
 
 const TOTAL_ROUNDS = 4;
 
@@ -34,6 +35,7 @@ export default function RoundOutro() {
   const fired = useRef(false);
   useEffect(() => {
     if (fired.current) return;
+    sound.play("fireworks");
     fired.current = true;
     confetti({
       particleCount: 120,

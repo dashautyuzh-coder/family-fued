@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { fetchQuestions } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
 import * as a from "@/styles/atoms.css";
-import { playSound } from "@/lib/sounds";
+import { playSound, sound } from "@/lib/sounds";
 import { useToast } from "@/lib/toast";
 
 // ---- helpers --------------------------------------------------------------
@@ -135,7 +135,11 @@ export default function HostPage() {
         const idx = Number(e.key) - 1;
         if (idx < (cur.answers?.length ?? 0)) {
           e.preventDefault();
+          const wasRevealed = !!cur.answers[idx]?.revealed;
           toggleReveal(idx);
+          if (!wasRevealed) {
+            sound.play("correct:random");
+          }
         }
         return;
       }
@@ -159,7 +163,8 @@ export default function HostPage() {
           // Space = strike
           e.preventDefault();
           addStrike();
-          playSound("strike");
+          sound.play("strike");
+          sound.play("wrong:random");
           toast("❌ Strike added!");
           break;
         }
@@ -182,7 +187,7 @@ export default function HostPage() {
 
           awardingRef.current = true;
           state.addPointsToTeam(teamIdx as 0 | 1, pot);
-          playSound("award");
+          sound.play("award");
           toast(`🏆 +${pot} points to ${state.teams[teamIdx].name}!`);
 
           // Mark those revealed answers as awarded (so pot = 0 now)
@@ -366,7 +371,10 @@ export default function HostPage() {
               {ans.points ?? 0}
             </span>
             <button
-              onClick={() => toggleReveal(i)}
+              onClick={() => {
+                toggleReveal(i);
+                // sound.play("correct:random");
+              }}
               className={a.button({
                 variant: ans.revealed ? "ghost" : "primary",
                 size: "sm",
@@ -413,7 +421,8 @@ export default function HostPage() {
           <button
             onClick={() => {
               addStrike();
-              playSound("strike");
+              sound.play("strike");
+              sound.play("wrong:random");
               toast("❌ Strike added!");
             }}
             className={a.button({ variant: "secondary", size: "sm" })}
@@ -436,7 +445,9 @@ export default function HostPage() {
               if (pot <= 0) return;
 
               state.addPointsToTeam(state.activeTeam, pot);
-              playSound("award");
+              sound.play("award");
+              sound.play("points:random");
+
               toast(`🏆 +${pot} points to ${teams[state.activeTeam].name}!`);
 
               // prevent re-award

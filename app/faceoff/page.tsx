@@ -13,7 +13,7 @@ import * as a from "@/styles/atoms.css";
 import * as f from "@/styles/faceoff.css";
 import * as b from "@/styles/board.css";
 import { vars } from "@/styles/theme.css";
-import { playSound } from "@/lib/sounds";
+import { sound } from "@/lib/sounds";
 import FaceoffSplash from "@/components/FaceoffSplash";
 
 type Phase = "awaitBuzz" | "input" | "evaluated" | "result";
@@ -68,7 +68,6 @@ export default function FaceoffPage() {
     setAnswers(["", ""]);
     setMatchPct([0, 0]);
     setAdvancingTeam(null);
-    playSound?.("shuffle"); // any name works with your extensible playSound; else map to 'ding'
   }, [
     faceoffPool,
     faceoffQuestion,
@@ -119,9 +118,7 @@ export default function FaceoffPage() {
 
   function buzz(idx: 0 | 1) {
     // Play different sounds per team for easy audio recognition
-    // Make sure you have these sounds registered in your sounds lib
-    // e.g. buzzA.mp3, buzzB.mp3
-    playSound?.(idx === 0 ? "buzzA" : "buzzB");
+    sound.play?.("award");
 
     // Flash screen their color for a quick dramatic strobe
     setFlashColor(BUZZ_COLORS[idx]);
@@ -159,8 +156,9 @@ export default function FaceoffPage() {
   // 🔔 Choose who buzzed first
   const handleChooseBuzzWinner = (team: 0 | 1) => {
     setBuzzedBy(team);
-    playSound("ding");
+
     setPhase("input");
+    sound.play("faceoff:random");
   };
 
   // 🔍 Live match preview
@@ -181,7 +179,7 @@ export default function FaceoffPage() {
     );
     setMatchPct(bothPct);
     setPhase("evaluated");
-    playSound("award");
+    sound.play("award");
   }, [answers, faceoffQuestion]);
 
   // Spacebar shortcut to evaluate
@@ -201,7 +199,7 @@ export default function FaceoffPage() {
     setAdvancingTeam(team);
     setFaceoffWinner(team); // store activeTeam for /game
     setPhase("result");
-
+    sound.play("fireworks");
     confetti({
       particleCount: 260,
       spread: 100,
@@ -211,7 +209,6 @@ export default function FaceoffPage() {
         vars.color.flavorGold,
       ],
     });
-    playSound("fireworks");
   };
 
   // 🚀 Move to game board

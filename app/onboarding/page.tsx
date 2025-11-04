@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGameStore } from "@/lib/store";
 import { vars } from "@/styles/theme.css";
 import * as a from "@/styles/atoms.css";
-import { playSound } from "@/lib/sounds";
+import { sound } from "@/lib/sounds";
 
 // --- Brand word banks ---
 const WORDS_AG1 = [
@@ -65,17 +65,17 @@ export default function OnboardingPage() {
   const roll1 = useCallback(() => {
     const [a, b] = sampleTwo(brand1 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
     setW1([a, b]);
-    playSound?.("shuffle");
+    sound.play?.("faceoff:random");
   }, [brand1]);
 
   const roll2 = useCallback(() => {
     const [a, b] = sampleTwo(brand2 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
     setW2([a, b]);
-    playSound?.("shuffle");
+    sound.play?.("faceoff:random");
   }, [brand2]);
 
   const next = useCallback(() => {
-    playSound?.("ding");
+    sound.play?.("winner");
     setStep((s) =>
       s === "team1" ? "team2" : s === "team2" ? "review" : "review"
     );
@@ -93,7 +93,7 @@ export default function OnboardingPage() {
     setTeamName(0, name1);
     setTeamName(1, name2);
     resetScoresAndStrikes();
-    playSound?.("ready");
+    sound.play?.("faceoff:random");
     router.push("/faceoff");
   }, [w1, w2, setTeamName, resetScoresAndStrikes, router, teams]);
 

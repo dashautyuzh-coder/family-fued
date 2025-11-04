@@ -7,7 +7,7 @@ import { fetchQuestions } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
 import * as a from "@/styles/atoms.css";
 import { useToast } from "@/lib/toast";
-import { playSound } from "@/lib/sounds";
+import { sound } from "@/lib/sounds";
 
 type TeamColor = "#2BB673" | "#F7C948" | "#1940AF" | "#E23B3B" | "#9B59B6";
 const SWATCHES: TeamColor[] = [
@@ -116,13 +116,13 @@ export default function SetupPage() {
     async function load() {
       try {
         const q = await fetchQuestions();
-         const list = Array.isArray(q?.questions) ? q!.questions : [];
-         const withMeta = list.map((q: any, i: number) => ({
-           ...q,
-           index: i,
-           category: q?.category,
-         }));
-         loadQuestions(withMeta);
+        const list = Array.isArray(q?.questions) ? q!.questions : [];
+        const withMeta = list.map((q: any, i: number) => ({
+          ...q,
+          index: i,
+          category: q?.category,
+        }));
+        loadQuestions(withMeta);
         setStatus(`Loaded ${q.questions.length} questions (default)`);
       } catch {
         setStatus("Failed to load default questions");
@@ -209,7 +209,6 @@ export default function SetupPage() {
     if (!readyRef.current) {
       readyRef.current = true;
       setBurst(true);
-      playSound?.("ready");
       setTimeout(() => {
         setBurst(false);
         router.push("/faceoff");
