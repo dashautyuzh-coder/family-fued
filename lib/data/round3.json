@@ -8,7 +8,8 @@
         { "text": "Inconsistent UI/brand drift", "points": 40 },
         { "text": "Multiple button styles", "points": 30 },
         { "text": "Different shades of 'AG1 green'", "points": 20 },
-        { "text": "Confusing handoffs & specs", "points": 10 }
+        { "text": "Confusing handoffs & specs", "points": 10 },
+        { "text": "Slower code reviews", "points": 5 }
       ]
     },
     {
@@ -17,7 +18,8 @@
         { "text": "Misaligned spacing/typography", "points": 35 },
         { "text": "Accessibility issues pile up", "points": 30 },
         { "text": "Extra QA cycles", "points": 20 },
-        { "text": "Customer trust takes a hit", "points": 10 }
+        { "text": "Customer trust takes a hit", "points": 10 },
+        { "text": "Design drift between brands", "points": 5 }
       ]
     },
     {
@@ -26,7 +28,8 @@
         { "text": "Edge-case states missing", "points": 35 },
         { "text": "Interaction/hover inconsistencies", "points": 30 },
         { "text": "Visual regressions across pages", "points": 20 },
-        { "text": "Mobile/responsive drift", "points": 10 }
+        { "text": "Mobile/responsive drift", "points": 10 },
+        { "text": "Broken themes or tokens", "points": 5 }
       ]
     },
     {
@@ -35,7 +38,8 @@
         { "text": "Rebuilding the same UI again", "points": 40 },
         { "text": "Chasing down one-off Sass overrides", "points": 30 },
         { "text": "Debugging style regressions", "points": 20 },
-        { "text": "Explaining decisions over and over", "points": 10 }
+        { "text": "Explaining decisions over and over", "points": 10 },
+        { "text": "Fixing merge conflicts in styles", "points": 5 }
       ]
     }
   ]

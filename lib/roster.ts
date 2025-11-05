@@ -1,0 +1,30 @@
+// lib/roster.ts
+export const ROSTER = [
+  "Aaron Daly",
+  "Ashley Hong",
+  "Austin Cook",
+  "Brian Shea",
+  "Bridget Lebeau",
+  "Chiara Richichi",
+  "Chris Valiquette",
+  "Danny Zou",
+  "Deep Khadka (DK)",
+  "Edgar Reyes",
+  "Greg Valdez",
+  "Jared Brainerd",
+  "Joey Fife",
+  "Julie Tanner",
+  "Keenan Blanchard",
+  "Kyle Phillips",
+  "Lena Kullab",
+  "Mackenzie Morse",
+  "Mallory Deavila",
+  "McKenna Rowe",
+  "Patrick Hess",
+  "Roger Call",
+  "Sarah O'Brien",
+  "Spencer Sharpe",
+  "Zach Loertscher",
+] as const;
+
+export type Name = (typeof ROSTER)[number];

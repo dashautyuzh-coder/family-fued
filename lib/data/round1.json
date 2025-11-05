@@ -18,7 +18,8 @@
         { "text": "Inconsistent components", "points": 40 },
         { "text": "Too much Sass spaghetti", "points": 30 },
         { "text": "Duplicate design work", "points": 20 },
-        { "text": "Engineering rework", "points": 10 }
+        { "text": "Engineering rework", "points": 10 },
+        { "text": "Slow reviews/approvals", "points": 5 }
       ]
     },
     {

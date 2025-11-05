@@ -21,10 +21,7 @@ export const POOL_MAP = {
     `${BASE}/correct/Track3.m4a`,
     `${BASE}/correct/Track5.m4a`,
   ],
-  "points:random": [
-    `${BASE}/points/Track7.m4a`,
-    `${BASE}/points/Track8.m4a`,
-  ],
+  "points:random": [`${BASE}/points/Track7.m4a`, `${BASE}/points/Track8.m4a`],
   "wrong:random": [
     `${BASE}/wrong/Track1.m4a`,
     `${BASE}/wrong/Track10.m4a`,
@@ -34,7 +31,6 @@ export const POOL_MAP = {
     `${BASE}/wrong/Track14.m4a`,
   ],
   "faceoff:random": [
-    `${BASE}/faceoff/Bonding.m4a`,
     `${BASE}/faceoff/Track2.m4a`,
     `${BASE}/faceoff/Track4.m4a`,
   ],
@@ -45,6 +41,7 @@ export const POOL_MAP = {
   award: [`/sounds/award.wav`], // example
   fireworks: [`/sounds/fireworks.wav`], // example
   countdown: [`/sounds/countdown.wav`], // example
+  bonding: [`/sounds/bonding.m4a`], // example
 } as const;
 
 export type SoundName = keyof typeof POOL_MAP;

@@ -5,38 +5,47 @@
     {
       "prompt": "What slows AG1 down without a design system?",
       "answers": [
-        { "text": "Inconsistent components across teams", "points": 40 },
-        { "text": "Sass one-offs/duplicate CSS", "points": 30 },
-        { "text": "Rework & back-and-forth handoffs", "points": 20 },
-        { "text": "Harder QA & accessibility fixes", "points": 10 }
+        { "text": "Inconsistent components across teams", "points": 35 },
+        { "text": "Sass one-offs / duplicate CSS", "points": 25 },
+        { "text": "Hard-coded tokens everywhere", "points": 20 },
+        { "text": "Rework & back-and-forth handoffs", "points": 15 },
+        { "text": "Harder QA & accessibility fixes", "points": 5 }
       ]
     },
     {
-      "prompt": "Name a measurable benefit of a design system.",
+      "prompt": "Name a measurable benefit of having a design system at AG1.",
       "answers": [
-        { "text": "Faster time-to-ship", "points": 40 },
-        { "text": "Reduced maintenance cost", "points": 30 },
+        { "text": "Faster time-to-ship", "points": 35 },
+        { "text": "Reduced maintenance cost", "points": 25 },
         { "text": "Fewer UI bugs", "points": 20 },
-        { "text": "Higher consistency/brand trust", "points": 10 }
+        { "text": "Higher consistency / brand trust", "points": 15 },
+        { "text": "Less design-to-dev back-and-forth", "points": 5 }
       ]
     },
     {
       "prompt": "Who benefits most day-to-day from AG1’s design system?",
       "answers": [
-        { "text": "Engineers (reusable code)", "points": 35 },
-        { "text": "Designers (single Figma source)", "points": 30 },
-        { "text": "Product managers (predictable scope)", "points": 20 },
-        { "text": "QA/Accessibility reviewers", "points": 10 },
-        { "text": "Leadership (velocity/quality)", "points": 5 }
+        { "text": "Engineers (reusable, tested components)", "points": 30 },
+        { "text": "Designers (single Figma source of truth)", "points": 25 },
+        {
+          "text": "Product managers (predictable scope & speed)",
+          "points": 20
+        },
+        { "text": "QA / Accessibility reviewers", "points": 15 },
+        { "text": "Leadership (velocity, quality, consistency)", "points": 10 }
       ]
     },
     {
       "prompt": "How does a design system help AG1 launch faster?",
       "answers": [
-        { "text": "Prebuilt components & patterns", "points": 40 },
-        { "text": "Clear decisions reduce debate", "points": 30 },
+        { "text": "Prebuilt components & patterns", "points": 35 },
+        { "text": "Clear decisions reduce debate", "points": 25 },
         { "text": "Less rework across teams", "points": 20 },
-        { "text": "Easier experiments & variants", "points": 10 }
+        {
+          "text": "Standardized tokens replace hard-coded values",
+          "points": 15
+        },
+        { "text": "Easier experiments & visual variants", "points": 5 }
       ]
     }
   ]
