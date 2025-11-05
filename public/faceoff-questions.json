@@ -3,77 +3,77 @@
     "id": "f1",
     "prompt": "What’s something you can’t start your morning without?",
     "answers": [
-      { "text": "Coffee", "points": 40 },
-      { "text": "AG1", "points": 30 },
+      { "text": "Coffee or tea", "points": 40 },
+      { "text": "Checking my phone", "points": 25 },
       { "text": "Music or a podcast", "points": 15 },
-      { "text": "Checking phone", "points": 10 },
-      { "text": "Silence / peace", "points": 5 }
+      { "text": "Breakfast", "points": 10 },
+      { "text": "Hitting snooze", "points": 10 }
     ]
   },
   {
     "id": "f2",
     "prompt": "What’s a small thing that instantly makes your day better?",
     "answers": [
-      { "text": "A compliment", "points": 35 },
-      { "text": "Sunshine", "points": 25 },
-      { "text": "Snack or treat", "points": 20 },
-      { "text": "Good meme in Slack", "points": 15 },
-      { "text": "Finishing a task early", "points": 5 }
+      { "text": "Sunshine", "points": 30 },
+      { "text": "A compliment", "points": 25 },
+      { "text": "Finding the perfect parking spot", "points": 20 },
+      { "text": "All green lights", "points": 15 },
+      { "text": "A hilarious meme", "points": 10 }
     ]
   },
   {
     "id": "f3",
     "prompt": "What’s a hobby or activity that helps you unwind after work?",
     "answers": [
-      { "text": "Going to the gym", "points": 35 },
-      { "text": "Watching shows or movies", "points": 25 },
+      { "text": "Watching shows or movies", "points": 30 },
+      { "text": "Going to the gym", "points": 25 },
       { "text": "Cooking", "points": 15 },
-      { "text": "Reading", "points": 15 },
-      { "text": "Walking or being outdoors", "points": 10 }
+      { "text": "Gaming", "points": 10 },
+      { "text": "Walking or being outdoors", "points": 5 }
     ]
   },
   {
     "id": "f4",
     "prompt": "What’s something that makes people instantly likable?",
     "answers": [
-      { "text": "A good sense of humor", "points": 40 },
+      { "text": "A good sense of humor", "points": 35 },
       { "text": "Kindness", "points": 25 },
-      { "text": "Good energy / positivity", "points": 20 },
-      { "text": "Listening skills", "points": 10 },
-      { "text": "A great laugh", "points": 5 }
+      { "text": "Being a good listener", "points": 15 },
+      { "text": "A genuine smile", "points": 15 },
+      { "text": "Sharing dog photos", "points": 10 }
     ]
   },
   {
     "id": "f5",
     "prompt": "If you could instantly become great at one thing, what would it be?",
     "answers": [
-      { "text": "Playing an instrument", "points": 30 },
-      { "text": "Cooking or baking", "points": 25 },
-      { "text": "Public speaking", "points": 20 },
-      { "text": "Coding or design", "points": 15 },
-      { "text": "Time management", "points": 10 }
+      { "text": "Speaking new languages", "points": 30 },
+      { "text": "Playing an instrument", "points": 25 },
+      { "text": "Cooking or baking", "points": 15 },
+      { "text": "Public speaking", "points": 10 },
+      { "text": "Drawing or painting", "points": 5 }
     ]
   },
   {
     "id": "f6",
     "prompt": "What’s something people collect without realizing it?",
     "answers": [
-      { "text": "Tabs", "points": 35 },
-      { "text": "Emails", "points": 25 },
-      { "text": "Water bottles", "points": 20 },
-      { "text": "Tote bags", "points": 10 },
-      { "text": "Screenshots", "points": 10 }
+      { "text": "Browser tabs", "points": 35 },
+      { "text": "Reusable bags", "points": 25 },
+      { "text": "Random cables/chargers", "points": 20 },
+      { "text": "Mugs or water bottles", "points": 15 },
+      { "text": "Unread emails", "points": 10 }
     ]
   },
   {
     "id": "f7",
     "prompt": "What’s your go-to comfort food?",
     "answers": [
-      { "text": "Pizza", "points": 35 },
-      { "text": "Pasta", "points": 25 },
+      { "text": "Pizza", "points": 30 },
+      { "text": "Ice cream", "points": 25 },
       { "text": "Chocolate", "points": 20 },
-      { "text": "Soup", "points": 10 },
-      { "text": "Ice cream", "points": 10 }
+      { "text": "Noodles or pasta", "points": 15 },
+      { "text": "Soup", "points": 10 }
     ]
   },
   {
@@ -81,32 +81,35 @@
     "prompt": "What’s something people always say they’ll do ‘next week’?",
     "answers": [
       { "text": "Start working out", "points": 35 },
-      { "text": "Clean their place", "points": 25 },
-      { "text": "Meal prep", "points": 20 },
-      { "text": "Start reading a book", "points": 10 },
-      { "text": "Go to bed earlier", "points": 10 }
+      { "text": "Clean the closet", "points": 20 },
+      { "text": "Learn a new language", "points": 15 },
+      { "text": "Make a budget", "points": 10 },
+      { "text": "Go to bed earlier", "points": 5 }
     ]
   },
   {
     "id": "f9",
     "prompt": "What’s something that makes you feel instantly old?",
     "answers": [
-      { "text": "New slang", "points": 30 },
-      { "text": "TikTok trends", "points": 25 },
-      { "text": "Music from high school on the radio", "points": 20 },
-      { "text": "Standing up too fast", "points": 15 },
-      { "text": "Seeing 2000s fashion again", "points": 10 }
+      { "text": "New slang you don’t get", "points": 30 },
+      { "text": "Your back making a sound", "points": 25 },
+      {
+        "text": "Your high school songs on the ‘oldies’ station",
+        "points": 20
+      },
+      { "text": "Not recognizing a new app", "points": 15 },
+      { "text": "Asking ‘who is that?’ during award shows", "points": 10 }
     ]
   },
   {
     "id": "f10",
-    "prompt": "What’s something people do at offsites that becomes instant legend?",
+    "prompt": "What’s something people do at parties that becomes instant legend?",
     "answers": [
-      { "text": "Embarrassing karaoke", "points": 35 },
-      { "text": "Late-night deep talks", "points": 25 },
-      { "text": "Spontaneous dance-off", "points": 20 },
-      { "text": "Accidentally start a meme", "points": 10 },
-      { "text": "Mix up AG1 and AGZ", "points": 10 }
+      { "text": "Embarrassing karaoke", "points": 30 },
+      { "text": "Spontaneous dance-off", "points": 25 },
+      { "text": "Epic game win or fail", "points": 15 },
+      { "text": "Costume or outfit mishap", "points": 10 },
+      { "text": "Accidentally invent a catchphrase", "points": 5 }
     ]
   }
 ]
