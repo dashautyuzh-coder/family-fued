@@ -86,10 +86,6 @@ export default function OnboardingPage() {
     );
   }, []);
 
-  useEffect(() => {
-    sound.play?.("bonding");
-  }, []);
-
   const startFaceoff = useCallback(() => {
     const name1 = w1?.join(" ").trim() || teams[0].name || "Team 1";
     const name2 = w2?.join(" ").trim() || teams[1].name || "Team 2";

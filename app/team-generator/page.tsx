@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGameStore } from "@/lib/store";
 import { ROSTER, type Name } from "@/lib/roster";
 import * as s from "@/styles/teamRoulette.css";
+import { sound } from "@/lib/sounds";
 
 type Phase = "idle" | "shuffling" | "revealing";
 type XY = { x: number; y: number };
@@ -67,6 +68,7 @@ export default function TeamRoulettePage() {
     if (phase === "shuffling") return; // prevent double starts
     setPhase("shuffling");
     setCountdown(5); // ~5s total
+    sound.play("bonding");
 
     // Slowly drift around for ~5 seconds (10 ticks @ 500ms)
     let ticks = 0;
