@@ -114,6 +114,13 @@ export default function Home() {
             Host Controls
           </Link>
           <Link
+            href="/team-generator"
+            className={atoms.card({ tone: "green", clickable: true })}
+            style={{ padding: "8px 14px" }}
+          >
+            Team Generator
+          </Link>
+          <Link
             href="/setup"
             className={atoms.card({ tone: "gold", clickable: true })}
             style={{ padding: "8px 14px" }}
