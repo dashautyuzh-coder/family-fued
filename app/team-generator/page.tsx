@@ -7,29 +7,30 @@ import { ROSTER, type Name } from "@/lib/roster";
 import * as s from "@/styles/teamRoulette.css";
 
 type Phase = "idle" | "shuffling" | "revealing";
+type XY = { x: number; y: number };
 
 export default function TeamRoulettePage() {
   const {
     currentRound,
-    teamSize,
     teamMembers,
     generateTeamsForCurrentRound,
     teamsGeneratedForRound,
   } = useGameStore();
 
   const [phase, setPhase] = useState<Phase>("idle");
-  const [positions, setPositions] = useState<
-    Record<Name, { x: number; y: number }>
-  >({});
+  const [positions, setPositions] = useState<Partial<Record<Name, XY>>>({});
   const [arenaSize, setArenaSize] = useState({ w: 0, h: 0 });
   const [captains, setCaptains] = useState<[Name | null, Name | null]>([
     null,
     null,
   ]);
 
+  // ⏱ countdown seconds shown on screen while shuffling (5 → 0)
+  const [countdown, setCountdown] = useState<number | null>(null);
+
   const arenaRef = useRef<HTMLDivElement | null>(null);
 
-  // track layout size
+  // Track layout size
   useEffect(() => {
     const setRect = () => {
       const r = arenaRef.current?.getBoundingClientRect();
@@ -46,12 +47,12 @@ export default function TeamRoulettePage() {
     };
   }, []);
 
-  // initial scatter positions
+  // Initial scatter positions (once we know the arena size)
   useEffect(() => {
-    if (!arenaSize.w) return;
+    if (!arenaSize.w || !arenaSize.h) return;
     const w = arenaSize.w * 0.9;
     const h = arenaSize.h * 0.7;
-    const next: Record<Name, { x: number; y: number }> = {} as any;
+    const next: Partial<Record<Name, XY>> = {};
     for (const n of ROSTER) {
       next[n] = {
         x: randBetween(-w / 2, w / 2),
@@ -62,15 +63,19 @@ export default function TeamRoulettePage() {
   }, [arenaSize.w, arenaSize.h]);
 
   const startShuffle = useCallback(() => {
+    if (!arenaSize.w || !arenaSize.h) return;
+    if (phase === "shuffling") return; // prevent double starts
     setPhase("shuffling");
+    setCountdown(5); // ~5s total
 
-    // slowly drift around for ~5 seconds
+    // Slowly drift around for ~5 seconds (10 ticks @ 500ms)
     let ticks = 0;
     const interval = setInterval(() => {
       setPositions((prev) => {
-        const next: Record<Name, { x: number; y: number }> = {} as any;
+        const prevSafe = prev ?? {};
+        const next: Partial<Record<Name, XY>> = {};
         for (const n of ROSTER) {
-          const cur = prev[n];
+          const cur = prevSafe[n] ?? { x: 0, y: 0 };
           const tx = cur.x + randBetween(-40, 40);
           const ty = cur.y + randBetween(-25, 25);
           next[n] = {
@@ -82,34 +87,101 @@ export default function TeamRoulettePage() {
       });
 
       ticks++;
+
+      // Update countdown every full second (every 2 ticks)
+      const secsLeft = Math.max(0, 5 - Math.floor(ticks / 2));
+      setCountdown(secsLeft);
+
       if (ticks >= 10) {
         clearInterval(interval);
+        setCountdown(0);
 
-        // generate two teams of 5
+        // Generate two teams of 5 if not already done this round
         if (teamsGeneratedForRound !== currentRound) {
-          generateTeamsForCurrentRound();
+          generateTeamsForCurrentRound(); // no force
         }
 
-        const left = useGameStore.getState().teamMembers[0] as Name[];
-        const right = useGameStore.getState().teamMembers[1] as Name[];
+        const state = useGameStore.getState();
+        const left = (state.teamMembers?.[0] ?? []) as Name[];
+        const right = (state.teamMembers?.[1] ?? []) as Name[];
         const pick = (arr: Name[]) =>
-          arr[Math.floor(Math.random() * arr.length)];
+          arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+
         setCaptains([pick(left), pick(right)]);
         setPhase("revealing");
       }
     }, 500);
-  }, [currentRound, generateTeamsForCurrentRound, teamsGeneratedForRound]);
+  }, [
+    arenaSize.w,
+    arenaSize.h,
+    phase,
+    currentRound,
+    generateTeamsForCurrentRound,
+    teamsGeneratedForRound,
+  ]);
+
+  const teamA = ((teamMembers?.[0] ?? []) as Name[]) || [];
+  const teamB = ((teamMembers?.[1] ?? []) as Name[]) || [];
 
   return (
     <main className={s.page}>
       <header className={s.header}>
         <h1 className={s.title}>Family Feud — Team Generator</h1>
-        <button className={s.goldBtn} onClick={startShuffle}>
-          {phase === "shuffling" ? "Shuffling..." : "GENERATE TEAMS"}
+        <button
+          className={s.goldBtn}
+          onClick={startShuffle}
+          disabled={phase === "shuffling"}
+          aria-disabled={phase === "shuffling"}
+        >
+          {phase === "shuffling" ? "Shuffling…" : "GENERATE TEAMS"}
         </button>
       </header>
 
       <section ref={arenaRef} className={s.arena}>
+        {/* Big center countdown overlay */}
+        <AnimatePresence>
+          {phase === "shuffling" && countdown !== null && (
+            <motion.div
+              key={`cd-${countdown}`}
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              transition={{ duration: 0.45 }}
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "grid",
+                placeItems: "center",
+                pointerEvents: "none",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--font-poppins)",
+                  fontWeight: 900,
+                  fontSize: "min(18vw, 180px)",
+                  letterSpacing: ".03em",
+                  color: "#fff",
+                  textShadow:
+                    "0 0 24px rgba(247,201,72,0.65), 0 0 48px rgba(43,182,115,0.45)",
+                }}
+              >
+                {countdown}
+              </div>
+              <div
+                style={{
+                  marginTop: -14,
+                  fontSize: 14,
+                  color: "#A7B8C8",
+                  textShadow: "0 1px 2px rgba(0,0,0,0.4)",
+                }}
+              >
+                Shuffling teams…
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <AnimatePresence>
           {phase === "revealing" && (
             <>
@@ -121,12 +193,19 @@ export default function TeamRoulettePage() {
 
         <div style={{ position: "absolute", inset: 0 }}>
           {ROSTER.map((name) => {
-            const side = (teamMembers[0] as Name[]).includes(name)
+            const side = teamA.includes(name)
               ? 0
-              : (teamMembers[1] as Name[]).includes(name)
+              : teamB.includes(name)
               ? 1
               : -1;
-            const isCaptain = captains.includes(name);
+            const isCaptain =
+              (captains[0] && name === captains[0]) ||
+              (captains[1] && name === captains[1]);
+
+            const revealY =
+              side === 0
+                ? teamA.indexOf(name) * 50 - 100
+                : teamB.indexOf(name) * 50 - 100;
 
             return (
               <motion.div
@@ -134,17 +213,9 @@ export default function TeamRoulettePage() {
                 animate={
                   phase === "revealing"
                     ? side === 0
-                      ? {
-                          x: -arenaSize.w / 3,
-                          y:
-                            (teamMembers[0] as Name[]).indexOf(name) * 50 - 100,
-                        }
+                      ? { x: -arenaSize.w / 3, y: revealY }
                       : side === 1
-                      ? {
-                          x: arenaSize.w / 3,
-                          y:
-                            (teamMembers[1] as Name[]).indexOf(name) * 50 - 100,
-                        }
+                      ? { x: arenaSize.w / 3, y: revealY }
                       : { opacity: 0.2 }
                     : { x: positions[name]?.x ?? 0, y: positions[name]?.y ?? 0 }
                 }
