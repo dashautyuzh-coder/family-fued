@@ -18,7 +18,6 @@ export const ROSTER = [
   "Kyle Phillips",
   "Lena Kullab",
   "Mackenzie Morse",
-  "Mallory Deavila",
   "McKenna Rowe",
   "Patrick Hess",
   "Roger Call",

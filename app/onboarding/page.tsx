@@ -7,6 +7,7 @@ import { useGameStore } from "@/lib/store";
 import { vars } from "@/styles/theme.css";
 import * as a from "@/styles/atoms.css";
 import { sound } from "@/lib/sounds";
+import Link from "next/link";
 
 // --- Brand word banks ---
 const WORDS_90S_A = [
@@ -556,12 +557,19 @@ export default function OnboardingPage() {
                   justifyContent: "center",
                 }}
               >
+                <Link
+                  href="/team-generator"
+                  target="_blank"
+                  className={a.button({ variant: "flavorBrown" })}
+                >
+                  1. Assemble the Avengers
+                </Link>
                 <button
                   onClick={startFaceoff}
                   className={a.button({ variant: "flavorGold", size: "lg" })}
                   title="Enter to start"
                 >
-                  Start Face-Off →
+                  2. Start Face-Off →
                 </button>
                 <button
                   onClick={back}
