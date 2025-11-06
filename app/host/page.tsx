@@ -234,6 +234,30 @@ export default function HostPage() {
     toast,
   ]);
 
+  function safeClearPot(mode: "hide" | "lock") {
+    try {
+      clearOrLockPot({ mode });
+    } catch {
+      /* noop */
+    }
+  }
+
+  function goPrev() {
+    const state = useGameStore.getState();
+    if (state.currentIndex > 0) {
+      prevQuestion();
+    }
+  }
+
+  function goNext() {
+    const state = useGameStore.getState();
+    if (state.currentIndex < state.questions.length - 1) {
+      resetReveals();
+      safeClearPot("hide"); // mirror ArrowRight behavior
+      nextQuestion();
+    }
+  }
+
   if (!current)
     return (
       <div className={a.container}>
@@ -402,6 +426,43 @@ export default function HostPage() {
               X
             </span>
           ))}
+        </div>
+
+        {/* Clickable navigation (mirrors ← / →) */}
+        <div
+          style={{
+            marginTop: 10,
+            display: "flex",
+            gap: 8,
+            justifyContent: "flex-end",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            onClick={goPrev}
+            disabled={currentIndex <= 0}
+            className={a.button({ variant: "ghost", size: "sm" })}
+            title={
+              currentIndex > 0 ? "Previous question (←)" : "At first question"
+            }
+            aria-label="Previous question"
+          >
+            ← Previous
+          </button>
+
+          <button
+            onClick={goNext}
+            disabled={currentIndex >= questions.length - 1}
+            className={a.button({ variant: "primary", size: "sm" })}
+            title={
+              currentIndex < questions.length - 1
+                ? "Next question (→)"
+                : "No more questions"
+            }
+            aria-label="Next question"
+          >
+            Next →
+          </button>
         </div>
 
         {/* Controls */}
