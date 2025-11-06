@@ -9,33 +9,33 @@ import * as a from "@/styles/atoms.css";
 import { sound } from "@/lib/sounds";
 
 // --- Brand word banks ---
-const WORDS_AG1 = [
-  "Tropical",
-  "Vibrant",
-  "Crisp",
-  "Zesty",
-  "Green",
-  "Daily",
-  "Bright",
-  "Pure",
-  "Balanced",
-  "Radiant",
-  "Revive",
-  "Minty",
+const WORDS_90S_A = [
+  "BritneySpears",
+  "AOL",
+  "Blockbuster",
+  "Goosebumps",
+  "DialUp",
+  "Nickelodeon",
+  "Lunchable",
+  "Tamagotchi",
+  "TrapperKeeper",
+  "BacksteetBoys",
+  "TopGun",
+  "LooneyTunes",
 ];
-const WORDS_AGZ = [
-  "Chocolate",
-  "Velvet",
-  "Fudgy",
-  "Creamy",
-  "Toasty",
-  "Caramel",
-  "Mocha",
-  "Cookie",
-  "Brownie",
-  "Silky",
-  "Swirl",
-  "Truffle",
+const WORDS_90S_B = [
+  "Grunge",
+  "Macarena",
+  "Y2K",
+  "Spice",
+  "FrostedTips",
+  "Walkman",
+  "FlipPhone",
+  "FannyPack",
+  "BoyBand",
+  "Discman",
+  "NerfWar",
+  "DialTone",
 ];
 
 type Step = "team1" | "team2" | "review";
@@ -63,13 +63,13 @@ export default function OnboardingPage() {
 
   // Helpers
   const roll1 = useCallback(() => {
-    const [a, b] = sampleTwo(brand1 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
+    const [a, b] = sampleTwo(brand1 === "AG1" ? WORDS_90S_A : WORDS_90S_B);
     setW1([a, b]);
     sound.play?.("award");
   }, [brand1]);
 
   const roll2 = useCallback(() => {
-    const [a, b] = sampleTwo(brand2 === "AG1" ? WORDS_AG1 : WORDS_AGZ);
+    const [a, b] = sampleTwo(brand2 === "AG1" ? WORDS_90S_A : WORDS_90S_B);
     setW2([a, b]);
     sound.play?.("award");
   }, [brand2]);
