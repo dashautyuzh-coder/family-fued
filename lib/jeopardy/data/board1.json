@@ -1,0 +1,56 @@
+{
+  "title": "AG1opardy: Game Night Edition",
+  "theme": "ag1",
+  "categories": [
+    {
+      "name": "Who Said It?",
+      "clues": [
+        { "text": "This person can summarize an entire crisis in one word: “Ominous.”", "response": "Sam Dornan", "prefix": "Who is", "value": 100 },
+        { "text": "This person once opened an update with the calming phrase: “alright so here's some shit.”", "response": "Spencer Sharpe", "prefix": "Who is", "value": 200 },
+        { "text": "This person's messages somehow end with “Thanks!” regardless of whether the request is tiny or terrifying.", "response": "Kristiana Haiar", "prefix": "Who is", "value": 300 },
+        { "text": "If the message contains “Woo!! 💚”, there's a strong chance it came from this person.", "response": "Jared Brainerd", "prefix": "Who is", "value": 400 },
+        { "text": "This person once gave the team the extremely useful technical update: “I am going to ask Claude about this one.”", "response": "Kyle Phillips", "prefix": "Who is", "value": 500 }
+      ]
+    },
+    {
+      "name": "This Sounds Like a Ticket",
+      "clues": [
+        { "text": "A request starts with “Quick change…”. This is usually the first sign of what?", "response": "Scope creep", "prefix": "What is", "value": 100 },
+        { "text": "A ticket has no AC, design is TBD, and launch is tomorrow. Naturally, it is ready for this meeting.", "response": "Grooming", "prefix": "What is", "value": 200 },
+        { "text": "Product says frontend. Frontend says backend. Backend says Shopify. This is commonly known as…", "response": "Tuesday", "prefix": "What is", "value": 300 },
+        { "text": "The three most dangerous words in software: “Can we also…”", "response": "Scope creep", "prefix": "What is", "value": 400 },
+        { "text": "The sprint plan is best described as: A) a contract, B) a promise, C) a legally binding document, D) a suggestion", "response": "A suggestion", "prefix": "What is", "value": 500 }
+      ]
+    },
+    {
+      "name": "Slack Translator",
+      "clues": [
+        { "text": "“Can confirm.” Translation: congratulations, the bug now has this.", "response": "A second witness", "prefix": "What is", "value": 100 },
+        { "text": "“Is anyone else seeing this?” really means: please tell me this isn't just ______.", "response": "My computer / me", "prefix": "What is", "value": 200 },
+        { "text": "“Quick question.” This phrase guarantees absolutely nothing about the question's ______.", "response": "Length", "prefix": "What is", "value": 300 },
+        { "text": "“Swarming on a fix.” Translation: several people's ______ have just been cancelled.", "response": "Calendars", "prefix": "What are", "value": 400 },
+        { "text": "“Should be straightforward.” Finish the narrator voice: “It was _____ straightforward.”", "response": "Not", "prefix": "What is", "value": 500 }
+      ]
+    },
+    {
+      "name": "AG1 Lore",
+      "clues": [
+        { "text": "In Good, Better, Best, this product is Good.", "response": "Essentials", "prefix": "What is", "value": 100 },
+        { "text": "In Good, Better, Best, this product is Best.", "response": "AG1 Pro", "prefix": "What is", "value": 200 },
+        { "text": "Legal transformed AGZ Chocolate into this flavor name.", "response": "Cocoa", "prefix": "What is", "value": 300 },
+        { "text": "Essentials Gummies launched on the wonderfully inevitable internal holiday called ______.", "response": "CHEWsday", "prefix": "What is", "value": 400 },
+        { "text": "This glamorous internal code name refers to the legacy AG1 formula still sold at Costco.", "response": "V52", "prefix": "What is", "value": 500 }
+      ]
+    },
+    {
+      "name": "Who Am I?",
+      "clues": [
+        { "text": "If you finish explaining a Sanity idea and discover a PR already exists, this person is a prime suspect.", "response": "Sam Dornan", "prefix": "Who is", "value": 100 },
+        { "text": "If a Sanity component exists somewhere on the site, this designer probably has it documented in a spreadsheet.", "response": "Edgar Reyes", "prefix": "Who is", "value": 200 },
+        { "text": "If someone needs to confidently say “Ship it,” this Product leader is a strong candidate.", "response": "Nick Boes", "prefix": "Who is", "value": 300 },
+        { "text": "If something in #data-etl-alerts catches fire, tradition says this person gets tagged.", "response": "Aaron Daly", "prefix": "Who is", "value": 400 },
+        { "text": "This person once built a whole custom Family Feud game and has now apparently decided one custom offsite game wasn't enough.", "response": "Dasha Utyuzh", "prefix": "Who is", "value": 500 }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ag1DarkTheme } from "@/styles/theme.css";
+import { ag1DarkTheme } from "@/styles/shared/theme.css";
 import { Inter, Poppins } from "next/font/google";
 
 const inter = Inter({

@@ -1,0 +1,185 @@
+{
+  "title": "The Fourth Prince: Baby Boy #4 Edition",
+  "theme": "sprinkle",
+  "categories": [
+    {
+      "name": "Baby 4.0",
+      "clues": [
+        {
+          "text": "By baby #4, Lily probably has approximately this many opinions about which brand of wipes is best.",
+          "response": "Zero",
+          "prefix": "What is",
+          "value": 100
+        },
+        {
+          "text": "Baby #1's pacifier falls on the floor: sterilize it. Baby #4's pacifier falls on the floor: do this.",
+          "response": "Give it back",
+          "prefix": "What is",
+          "value": 200
+        },
+        {
+          "text": "For a first baby, the diaper bag contains 47 emergency items. By baby #4, the essentials are diapers, wipes, and this.",
+          "response": "Snacks",
+          "prefix": "What are",
+          "value": 300
+        },
+        {
+          "text": "With four boys, Lily will hear this word yelled from another room approximately 6,000 times per day.",
+          "response": "Mom",
+          "prefix": "What is",
+          "value": 400
+        },
+        {
+          "text": "Experts call having four children 'a family.' Lily may eventually refer to it as this.",
+          "response": "A small army",
+          "prefix": "What is",
+          "value": 500
+        }
+      ]
+    },
+
+    {
+      "name": "Boy Mom Survival Guide",
+      "clues": [
+        {
+          "text": "This mysterious substance will somehow be on the floor even five minutes after Lily cleans it.",
+          "response": "Dirt",
+          "prefix": "What is",
+          "value": 100
+        },
+        {
+          "text": "The safest assumption when a house containing four boys suddenly becomes completely quiet.",
+          "response": "Something is happening",
+          "prefix": "What is",
+          "value": 200
+        },
+        {
+          "text": "With four boys in the house, this household expense may eventually require its own line in the family budget.",
+          "response": "Groceries",
+          "prefix": "What are",
+          "value": 300
+        },
+        {
+          "text": "This innocent household object can become a sword, lightsaber, baseball bat, or weapon within approximately three seconds.",
+          "response": "Anything",
+          "prefix": "What is",
+          "value": 400
+        },
+        {
+          "text": "Lily's future grocery-store receipt may someday contain four gallons of milk, 36 eggs, 19 snacks, and somehow STILL not contain enough of this.",
+          "response": "Food",
+          "prefix": "What is",
+          "value": 500
+        }
+      ]
+    },
+
+    {
+      "name": "Baby Brain",
+      "clues": [
+        {
+          "text": "A newborn typically sleeps about this many hours per day: 8, 12, or 16.",
+          "response": "16 hours",
+          "prefix": "What is",
+          "value": 100
+        },
+        {
+          "text": "Babies are born with more of these than adults: bones, teeth, or eyelashes.",
+          "response": "Bones",
+          "prefix": "What are",
+          "value": 200
+        },
+        {
+          "text": "This is the most common first word for babies, conveniently giving dads completely undeserved bragging rights.",
+          "response": "Dada",
+          "prefix": "What is",
+          "value": 300
+        },
+        {
+          "text": "Newborn babies can cry immediately, but they don't actually produce much of this until they're a few weeks old.",
+          "response": "Tears",
+          "prefix": "What are",
+          "value": 400
+        },
+        {
+          "text": "Babies are born without fully developed versions of these hard little things that adults have in their knees.",
+          "response": "Kneecaps",
+          "prefix": "What are",
+          "value": 500
+        }
+      ]
+    },
+
+    {
+      "name": "Name That Baby",
+      "clues": [
+        {
+          "text": "This animated baby wears a suit, carries a briefcase, and is significantly more concerned with corporate strategy than tummy time.",
+          "response": "The Boss Baby",
+          "prefix": "Who is",
+          "value": 100
+        },
+        {
+          "text": "This famous royal baby became the son of Simba and Nala in The Lion King.",
+          "response": "Simba",
+          "prefix": "Who is",
+          "value": 200
+        },
+        {
+          "text": "This green Star Wars character instantly became known to the internet as 'Baby Yoda.'",
+          "response": "Grogu",
+          "prefix": "Who is",
+          "value": 300
+        },
+        {
+          "text": "In The Flintstones, Fred and Wilma's tiny daughter has this rock-solid name.",
+          "response": "Pebbles",
+          "prefix": "Who is",
+          "value": 400
+        },
+        {
+          "text": "Tommy, Chuckie, Phil, Lil, and Angelica belong to this cartoon franchise about babies with extremely active social lives.",
+          "response": "Rugrats",
+          "prefix": "What is",
+          "value": 500
+        }
+      ]
+    },
+
+    {
+      "name": "Fourth Time's the Charm",
+      "clues": [
+        {
+          "text": "Finish the saying: First is the worst, second is the best, third is the one with the hairy chest, and fourth gets...",
+          "response": "Whatever is left",
+          "prefix": "What is",
+          "value": 100
+        },
+        {
+          "text": "Baby #1 gets a professionally designed nursery. Baby #4 gets a crib, clean sheets, and this important feature.",
+          "response": "A place to sleep",
+          "prefix": "What is",
+          "value": 200
+        },
+        {
+          "text": "The traditional gift for a fourth anniversary is fruit or flowers. The traditional gift for a fourth baby should probably be this.",
+          "response": "Coffee",
+          "prefix": "What is",
+          "value": 300
+        },
+        {
+          "text": "Four boys can officially play a complete game of this classic 2-vs-2 backyard sport without recruiting either parent.",
+          "response": "Doubles",
+          "prefix": "What is",
+          "value": 400
+        },
+        {
+          "text": "Lily has already completed three newborn phases, three toddler phases, and countless diaper changes. Her official parenting difficulty level is now this.",
+          "response": "Expert mode",
+          "prefix": "What is",
+          "value": 500
+        }
+      ]
+    }
+  ]
+}
